@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useTransition } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,18 +24,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import FormError from '@/components/form-error';
 import FormSuccess from '@/components/form-success';
 import { userLoginSchema } from '@/schema/login';
 import { userLogin } from '@/actions/login';
 import { RefreshCw } from 'lucide-react';
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from '../ui/input-otp';
 
 export default function UserLoginForm() {
   const [error, setError] = useState<string | undefined>();
@@ -119,11 +114,25 @@ export default function UserLoginForm() {
             <FormError message={error} />
             <FormSuccess message={success} />
           </CardContent>
-          <CardFooter>
+          <CardContent>
             <Button type='submit' className='w-full' disabled={isPending}>
               {isPending && <RefreshCw className='mr-2 h-4 w-4 animate-spin' />}
               Masuk
             </Button>
+          </CardContent>
+          <CardFooter className='justify-center'>
+            <span className='text-sm'>
+              Belum punya akun?
+              <Link
+                href='/auth/register/user'
+                className={buttonVariants({
+                  variant: 'link',
+                  className: 'underline',
+                })}
+              >
+                Daftar disini
+              </Link>
+            </span>
           </CardFooter>
         </div>
       </form>
