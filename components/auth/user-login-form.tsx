@@ -26,26 +26,32 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import FormError from '@/components/form-error';
 import FormSuccess from '@/components/form-success';
-import { adminLoginSchema } from '@/schema/login';
-import { adminLogin } from '@/actions/login';
+import { userLoginSchema } from '@/schema/login';
+import { userLogin } from '@/actions/login';
 import { RefreshCw } from 'lucide-react';
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from '../ui/input-otp';
 
-export default function LoginForm() {
+export default function UserLoginForm() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof adminLoginSchema>>({
-    resolver: zodResolver(adminLoginSchema),
+  const form = useForm<z.infer<typeof userLoginSchema>>({
+    resolver: zodResolver(userLoginSchema),
     defaultValues: {
-      username: '',
-      password: '',
+      nik: '',
+      pin: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof adminLoginSchema>) => {
+  const onSubmit = (values: z.infer<typeof userLoginSchema>) => {
     startTransition(() => {
-      adminLogin(values).then((data) => {
+      userLogin(values).then((data) => {
         setError(data.error);
         setSuccess(data.success);
       });
@@ -55,31 +61,34 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className='w-full mx-auto max-w-sm'>
-          <CardHeader>
-            <CardTitle className='text-2xl'>Admin Login</CardTitle>
+        <div className='w-full mx-auto max-w-sm'>
+          <CardHeader className='text-center'>
+            <CardTitle className='text-2xl'>
+              Selamat Datang di PENDEKAR
+            </CardTitle>
             <CardDescription>
-              Masukkan username dan password untuk masuk
+              Silahkan login menggunakan NIK dan PIN
             </CardDescription>
           </CardHeader>
           <CardContent className='grid gap-4'>
             <div className='grid gap-2'>
               <FormField
                 control={form.control}
-                name='username'
+                name='nik'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>NIK</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='username'
+                        placeholder='3201234567890001'
                         type='text'
+                        maxLength={16}
                         disabled={isPending}
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      Silahkan masukkan username
+                      Silahkan masukkan nomor NIK
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -89,21 +98,19 @@ export default function LoginForm() {
             <div className='grid gap-2'>
               <FormField
                 control={form.control}
-                name='password'
+                name='pin'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>PIN</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='********'
+                        placeholder='******'
                         type='password'
-                        disabled={isPending}
+                        maxLength={6}
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      Silahkan masukkan password
-                    </FormDescription>
+                    <FormDescription>Silahkan masukkan PIN</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -118,7 +125,7 @@ export default function LoginForm() {
               Masuk
             </Button>
           </CardFooter>
-        </Card>
+        </div>
       </form>
     </Form>
   );
