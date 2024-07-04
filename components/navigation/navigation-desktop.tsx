@@ -3,9 +3,13 @@ import { Bell, Flame } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
-import { NavLinksDesktop } from './links';
+import { AdminNavLinksDesktop, UserNavLinksDesktop } from './links';
 
-export default function NavigationDesktop() {
+export default function NavigationDesktop({
+  type,
+}: {
+  type: 'user' | 'admin';
+}) {
   return (
     <div className='hidden border-r bg-muted/40 md:block'>
       <div className='flex h-full max-h-screen flex-col gap-2'>
@@ -20,7 +24,7 @@ export default function NavigationDesktop() {
           </Button>
         </div>
         <div className='flex-1'>
-          <NavLinksDesktop />
+          {type === 'user' ? <UserNavLinksDesktop /> : <AdminNavLinksDesktop />}
         </div>
       </div>
     </div>

@@ -2,9 +2,9 @@ import { Menu } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
-import { NavLinksMobile } from './links';
+import { AdminNavLinksMobile, UserNavLinksMobile } from './links';
 
-export default function NavigationMobile() {
+export default function NavigationMobile({ type }: { type: 'user' | 'admin' }) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -14,7 +14,7 @@ export default function NavigationMobile() {
         </Button>
       </SheetTrigger>
       <SheetContent side='left' className='flex flex-col'>
-        <NavLinksMobile />
+        {type === 'user' ? <UserNavLinksMobile /> : <AdminNavLinksMobile />}
       </SheetContent>
     </Sheet>
   );

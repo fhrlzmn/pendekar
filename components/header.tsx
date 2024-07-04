@@ -1,7 +1,6 @@
-import { Search, CircleUser } from 'lucide-react';
+import { CircleUser } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,10 +11,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import NavigationMobile from '@/components/navigation/navigation-mobile';
 
-export default function Header() {
+export default function Header({ type }: { type: 'user' | 'admin' }) {
   return (
     <header className='flex h-14 items-center justify-between md:justify-end gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6'>
-      <NavigationMobile />
+      <NavigationMobile type={type} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='secondary' size='icon' className='rounded-full'>
