@@ -20,8 +20,8 @@ export default function Page() {
         </CardHeader>
         <CardContent className='text-center'>
           <p>
-            Silahkan hubungi administrator untuk mendapatkan akses ke aplikasi
-            ini.
+            Silahkan hubungi administrator di Kantor Desa untuk mendapatkan
+            akses ke aplikasi.
           </p>
         </CardContent>
         <CardFooter className='justify-center'>
