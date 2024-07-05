@@ -7,12 +7,6 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import {
-  ChevronFirst,
-  ChevronLast,
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-react';
 
 import {
   Table,
@@ -22,17 +16,17 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
+import Pagination from './pagination';
 
-interface PeopleTableProps<TData, TValue> {
+interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export default function PeopleTable<TData, TValue>({
+export default function DataTable<TData, TValue>({
   columns,
   data,
-}: PeopleTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
@@ -92,48 +86,7 @@ export default function PeopleTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className='flex items-center justify-end space-x-4 py-4'>
-        <div>
-          <p className='text-sm'>
-            Page {table.getState().pagination.pageIndex + 1} of{' '}
-            {table.getPageCount()}
-          </p>
-        </div>
-        <div>
-          <Button
-            variant='outline'
-            size='icon'
-            onClick={() => table.firstPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            <ChevronFirst className='h-4 w-4' />
-          </Button>
-          <Button
-            variant='outline'
-            size='icon'
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            <ChevronLeft className='h-4 w-4' />
-          </Button>
-          <Button
-            variant='outline'
-            size='icon'
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            <ChevronRight className='h-4 w-4' />
-          </Button>
-          <Button
-            variant='outline'
-            size='icon'
-            onClick={() => table.lastPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            <ChevronLast className='h-4 w-4' />
-          </Button>
-        </div>
-      </div>
+      <Pagination table={table} />
     </div>
   );
 }

@@ -11,17 +11,11 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { Penduduk } from '@prisma/client';
 
-export type Person = {
-  name: string;
-  nik: string;
-  jenisKelamin: 'Laki-laki' | 'Perempuan';
-  tanggalLahir: string;
-};
-
-export const peopleColumns: ColumnDef<Person>[] = [
+export const columns: ColumnDef<Penduduk>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'nama',
     header: 'Nama',
   },
   {
@@ -33,8 +27,8 @@ export const peopleColumns: ColumnDef<Person>[] = [
     header: 'Jenis Kelamin',
   },
   {
-    accessorKey: 'tanggalLahir',
-    header: 'Tanggal Lahir',
+    accessorKey: 'pendidikanTerakhir',
+    header: 'Pendidikan Terakhir',
   },
   {
     id: 'actions',

@@ -9,9 +9,14 @@ import { usePathname } from 'next/navigation';
 
 const adminNavLinks: NavLink[] = [
   { id: 1, path: '/admin/dashboard', label: 'Dashboard', icon: 'house' },
-  { id: 2, path: '/admin/people', label: 'Penduduk', icon: 'book-user' },
+  { id: 2, path: '/admin/penduduk', label: 'Penduduk', icon: 'book-user' },
   { id: 3, path: '/admin/account', label: 'Akun', icon: 'users' },
-  { id: 4, path: '/admin/requests', label: 'Permohonan', icon: 'file-search' },
+  {
+    id: 4,
+    path: '/admin/permohonan',
+    label: 'Permohonan',
+    icon: 'file-search',
+  },
 ];
 
 const userNavLinks: NavLink[] = [

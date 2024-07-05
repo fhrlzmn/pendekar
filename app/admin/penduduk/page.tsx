@@ -1,30 +1,15 @@
 import Link from 'next/link';
 import { UserPlus } from 'lucide-react';
+import { Penduduk } from '@prisma/client';
 
 import { buttonVariants } from '@/components/ui/button';
 
-import PeopleTable from '@/components/people/people-table';
-import { peopleColumns, Person } from '@/components/people/people-columns';
-
-async function getPeople(): Promise<Person[]> {
-  return [
-    {
-      name: 'John Doe',
-      nik: '3204360101010001',
-      jenisKelamin: 'Laki-laki',
-      tanggalLahir: '01-01-2001',
-    },
-    {
-      name: 'Jane Doe',
-      nik: '3204364308010001',
-      jenisKelamin: 'Perempuan',
-      tanggalLahir: '03-08-2001',
-    },
-  ];
-}
+import prisma from '@/lib/prisma';
+import DataTable from '@/components/table/data-table';
+import { columns } from './columns';
 
 export default async function Page() {
-  const people = await getPeople();
+  const penduduk: Penduduk[] = await prisma.penduduk.findMany();
 
   return (
     <div className='w-full min-h-full flex flex-col gap-y-4'>
@@ -39,7 +24,7 @@ export default async function Page() {
         </Link>
       </div>
       <div className='rounded-sm'>
-        <PeopleTable columns={peopleColumns} data={people} />
+        <DataTable columns={columns} data={penduduk} />
       </div>
     </div>
   );
