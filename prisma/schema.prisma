@@ -1,0 +1,298 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Model
+model Penduduk {
+  nik String @id @unique @db.VarChar(16)
+  noKK String @db.VarChar(16)
+  nama String @db.VarChar(255)
+  tempatLahir String @db.VarChar(255) @map("tempat_lahir")
+  tanggalLahir DateTime @db.Date() @map("tanggal_lahir")
+  jenisKelamin JenisKelamin @map("jenis_kelamin")
+  agama Agama
+  alamat String @db.VarChar(255)
+  rt String @db.VarChar(3)
+  rw String @db.VarChar(3)
+  desa String @db.VarChar(255)
+  kotaKabupaten String @db.VarChar(255) @map("kota_kabupaten")
+  provinsi String @db.VarChar(255)
+  pendidikanTerakhir Pendidikan @map("pendidikan_terakhir")
+  pendidikanSedangDitempuh Pendidikan @map("pendidikan_sedang_ditempuh")
+  statusPerkawinan StatusPerkawinan @map("status_perkawinan")
+  statusDalamKeluarga StatusDalamKeluarga @map("status_dalam_keluarga")
+  kewarganegaraan Kewarganegaraan
+  namaAyah String @db.VarChar(255) @map("nama_ayah")
+  namaIbu String @db.VarChar(255) @map("nama_ibu")
+  dibuatPada DateTime @default(now()) @map("dibuat_pada")
+  diubahPada DateTime @updatedAt @map("diubah_pada")
+
+  aparatDesa AparatDesa?
+  user User?
+
+  @@map("penduduk")
+}
+
+model AparatDesa {
+  id Int @id @default(autoincrement())
+  nik String @unique @db.VarChar(16)
+  nama String @db.VarChar(255)
+  jabatan Jabatan
+  dibuatPada DateTime @default(now()) @map("dibuat_pada")
+  diubahPada DateTime @updatedAt @map("diubah_pada")
+
+  penduduk Penduduk @relation(fields: [nik], references: [nik], onUpdate: Cascade, onDelete: Cascade)
+  admin Admin?
+
+  @@map("aparat_desa")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  nik String @unique @db.VarChar(16)
+  pin String @db.VarChar()
+  nama String @db.VarChar(255)
+  dibuatPada DateTime @default(now()) @map("dibuat_pada")
+  diubahPada DateTime @updatedAt @map("diubah_pada")
+  pertamaLogin Boolean @default(true) @map("pertama_login")
+
+  penduduk Penduduk @relation(fields: [nik], references: [nik], onUpdate: Cascade, onDelete: Cascade)
+
+  @@map("user")
+}
+
+model Admin {
+  id Int @id @default(autoincrement())
+  username String @unique @db.VarChar(255)
+  password String @db.VarChar()
+  nama String @db.VarChar(255)
+  dibuatPada DateTime @default(now()) @map("dibuat_pada")
+  diubahPada DateTime @updatedAt @map("diubah_pada")
+  aparatDesaId Int? @unique @map("apat_desa_id")
+
+  aparatDesa AparatDesa? @relation(fields: [aparatDesaId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  @@map("admin")
+}
+
+model JenisSurat {
+  id Int @id @default(autoincrement())
+  nama String @unique @db.VarChar(255)
+  kode String @unique @db.VarChar(5)
+
+  surat Surat[]
+
+  @@map("jenis_surat")
+}
+
+model Surat {
+  id Int @id @default(autoincrement())
+  nomorSurat String @unique @db.VarChar(255) @map("nomor_surat")
+  nikPemohon String @db.VarChar(16) @map("nik_pemohon")
+  keperluan String @db.Text() 
+  keterangan String @db.Text()
+  dataTambahan Json? @map("data_tambahan")
+  tanggalPengajuan DateTime @default(now()) @db.Date() @map("tanggal_pengajuan")
+  berlakuHingga DateTime @db.Date() @map("berlaku_hingga")
+  jenisSuratId Int @map("jenis_surat_id")
+
+  permohonan PermohonanSurat?
+
+  jenisSurat JenisSurat @relation(fields: [jenisSuratId], references: [id])
+
+  @@map("surat")
+}
+
+model PermohonanSurat {
+  id Int @id @default(autoincrement())
+  idSurat Int @unique
+  status StatusPermohonan
+  tanggalPengajuan DateTime @default(now())
+
+  surat Surat @relation(fields: [idSurat], references: [id])
+
+  @@map("permohonan_surat")
+}
+
+// Enum
+enum JenisKelamin {
+  L @map("Laki-laki")
+  P @map("Perempuan")
+
+  @@map("jenis_kelamin")
+}
+
+enum Agama {
+  Islam @map("Islam")
+  Kristen @map("Kristen")
+  Katolik @map("Katholik")
+  Hindu @map("Hindu")
+  Budha @map("Budha")
+  Konghucu @map("Khonghucu")
+  Lainnya @map("Lainnya")
+
+  @@map("agama")
+}
+
+enum Pendidikan {
+  TidakSekolah @map("Tidak/Belum Sekolah")
+  BelumTamatSD @map("Belum Tamat SD/Sederajat")
+  TamatSD @map("Tamat SD/Sederajat")
+  SLTP @map("SLTP/Sederajat")
+  SLTA @map("SLTA/Sederajat")
+  D1D2 @map("Diploma I/II")
+  D3 @map("Akademi/Diploma III/Sarjana Muda")
+  D4S1 @map("Diploma IV/Strata I")
+  S2 @map("Strata II")
+  S3 @map("Strata III")
+
+  @@map("pendidikan")
+}
+
+enum Pekerjaan {
+  TidakBekerja @map("Belum/Tidak Bekerja")
+  MengurusRumahTangga @map("Mengurus Rumah Tangga")
+  PelajarMahasiswa @map("Pelajar/Mahasiswa")
+  Pensiunan @map("Pensiunan")
+  PNS @map("Pegawai Negeri Sipil")
+  TNI @map("Tentara Nasional Indonesia")
+  POLRI @map("Kepolisian RI")
+  Perdagangan @map("Perdagangan")
+  Petani @map("Petani/Pekebun")
+  Peternak @map("Peternak")
+  NelayanPerikanan @map("Nelayan/Perikanan")
+  Industri @map("Industri")
+  Konstruksi @map("Konstruksi")
+  Transportasi @map("Transportasi")
+  KaryawanSwasta @map("Karyawan Swasta")
+  KaryawanBUMN @map("Karyawan BUMN")
+  KaryawanBUMD @map("Karyawan BUMD")
+  KaryawanHonorer @map("Karyawan Honorer")
+  BuruhHarianLepas @map("Buruh Harian Lepas")
+  BuruhTaniPerkebunan @map("Buruh Tani/Perkebunan")
+  BuruhNelayanPerikanan @map("Buruh Nelayan/Perikanan")
+  BuruhPeternakan @map("Buruh Peternakan")
+  PembantuRumahTangga @map("Pembantu Rumah Tangga")
+  TukangCukur @map("Tukang Cukur")
+  TukangListrik @map("Tukang Listrik")
+  TukangBatu @map("Tukang Batu")
+  TukangKayu @map("Tukang Kayu")
+  TukangSolSepatu @map("Tukang Sol Sepatu")
+  TukangLasPandaiBesi @map("Tukang Las/Pandai Besi")
+  TukangJahit @map("Tukang Jahit")
+  TukangGigi @map("Tukang Gigi")
+  PenataRias @map("Penata Rias")
+  PenataBusana @map("Penata Busana")
+  Mekanik @map("Mekanik")
+  Seniman @map("Seniman")
+  Tabib @map("Tabib")
+  Paraji @map("Paraji")
+  PerancangBusana @map("Perancang Busana")
+  Penterjemah @map("Penterjemah")
+  ImamMasjid @map("Imam Masjid")
+  Pendeta @map("Pendeta")
+  Pastor @map("Pastor")
+  Wartawan @map("Wartawan")
+  UstadzMubaligh @map("Ustadz/Mubaligh")
+  JuruMasak @map("Juru Masak")
+  PromotorAcara @map("Promotor Acara")
+  AnggotaDPRRI @map("Anggota DPR-RI")
+  AnggotaDPD @map("Anggota DPD")
+  AnggotaBPK @map("Anggota BPK")
+  Presiden @map("Presiden")
+  WakilPresiden @map("Wakil Presiden")
+  AnggotaMahkamahKonstitusi @map("Anggota Mahkamah Konstitusi")
+  AnggotaKabinetKementrian @map("Anggota Kabinet Kementrian")
+  DutaBesar @map("Duta Besar")
+  Gubernur @map("Gubernur")
+  WakilGubernur @map("Wakil Gubernur")
+  Bupati @map("Bupati")
+  WakilBupati @map("Wakil Bupati")
+  Walikota @map("Walikota")
+  WakilWalikota @map("Wakil Walikota")
+  AnggotaDPRPProp @map("Anggota DPRP Prop.")
+  AnggotaDPRPKab @map("Anggota DPRP Kab.")
+  Dosen @map("Dosen")
+  Guru @map("Guru")
+  Pilot @map("Pilot")
+  Pengacara @map("Pengacara")
+  Notaris @map("Notaris")
+  Arsitek @map("Arsitek")
+  Akuntan @map("Akuntan")
+  Konsultan @map("Konsultan")
+  Dokter @map("Dokter")
+  Bidan @map("Bidan")
+  Perawat @map("Perawat")
+  Apoteker @map("Apoteker")
+  PsikiaterPsikolog @map("Psikiater/Psikolog")
+  PenyiarTelevisi @map("Penyiar Televisi")
+  PenyiarRadio @map("Penyiar Radio")
+  Pelaut @map("Pelaut")
+  Peneliti @map("Peneliti")
+  Sopir @map("Sopir")
+  Pialang @map("Pialang")
+  Paranormal @map("Paranormal")
+  Pedagang @map("Pedagang")
+  PerangkatDesa @map("Perangkat Desa")
+  KepalaDesa @map("Kepala Desa")
+  Biarawati @map("Biarawati")
+  Wiraswasta @map("Wiraswasta")
+
+  @@map("pekerjaan")
+}
+
+enum StatusPerkawinan {
+  BelumKawin @map("Belum Kawin")
+  Kawin @map("Kawin")
+  CeraiHidup @map("Cerai Hidup")
+  CeraiMati @map("Cerai Mati")
+
+  @@map("status_perkawinan")
+}
+
+enum StatusDalamKeluarga {
+  KepalaKeluarga @map("Kepala Keluarga")
+  Suami @map("Suami")
+  Istri @map("Istri")
+  Anak @map("Anak")
+  Menantu @map("Menantu")
+  Cucu @map("Cucu")
+  OrangTua @map("Orang Tua")
+  Mertua @map("Mertua")
+  FamiliLain @map("Famili Lain")
+  Pembantu @map("Pembantu")
+  Lainnya @map("Lainnya")
+
+  @@map("status_dalam_keluarga")
+}
+
+enum Kewarganegaraan {
+  WNI @map("WNI")
+  WNA @map("WNA")
+  Lainnya @map("Lainnya")
+
+  @@map("kewarganegaraan")
+}
+
+enum Jabatan {
+  KepalaDesa @map("Kepala Desa")
+  SekretarisDesa @map("Sekretaris Desa")
+  Operator @map("Operator")
+  Lainnya @map("Lainnya")
+
+  @@map("jabatan")
+}
+
+enum StatusPermohonan {
+  Dikirim @map("Dikirim")
+  Diterima @map("Diterima")
+  Ditolak @map("Ditolak")
+  Selesai @map("Selesai")
+
+  @@map("status_permohonan")
+}
