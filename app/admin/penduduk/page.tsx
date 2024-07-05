@@ -16,7 +16,7 @@ export default async function Page() {
       <div className='flex justify-between'>
         <h1 className='text-xl md:text-2xl font-semibold'>Penduduk</h1>
         <Link
-          href='/admin/people/add'
+          href='/admin/penduduk/new'
           className={buttonVariants({ variant: 'default' })}
         >
           <UserPlus className='w-4 h-4 mr-2' />
