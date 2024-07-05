@@ -27,8 +27,8 @@ export const columns: ColumnDef<Penduduk>[] = [
     header: 'Jenis Kelamin',
   },
   {
-    accessorKey: 'pendidikanTerakhir',
-    header: 'Pendidikan Terakhir',
+    accessorKey: 'namaAyah',
+    header: 'Nama Ayah',
   },
   {
     id: 'actions',
