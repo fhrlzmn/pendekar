@@ -75,7 +75,7 @@ export default function PendudukForm() {
   });
 
   const onSubmit = (values: z.infer<typeof pendudukSchema>) => {
-    alert(values.jenisKelamin);
+    console.log(values);
   };
 
   return (
@@ -182,6 +182,43 @@ export default function PendudukForm() {
             </Card>
             <Card>
               <CardHeader>
+                <CardTitle>Pendidikan dan Pekerjaan</CardTitle>
+                <CardDescription>
+                  Informasi pendidikan dan pekerjaan penduduk yang bersangkutan
+                </CardDescription>
+              </CardHeader>
+              <CardContent className='grid gap-4'>
+                <div className='grid grid-cols-2 gap-3'>
+                  <FormFieldComboBox<typeof pendudukSchema>
+                    form={form}
+                    name='pendidikanTerakhir'
+                    label='Pendidikan Terakhir'
+                    values={PendidikanTerakhirEnum.options}
+                    description='Silahkan pilih pendidikan terakhir'
+                  />
+                  <FormFieldComboBox<typeof pendudukSchema>
+                    form={form}
+                    name='pendidikanDitempuh'
+                    label='Pendidikan Ditempuh'
+                    values={PendidikanDitempuhEnum.options}
+                    description='Silahkan pilih pendidikan terakhir'
+                  />
+                </div>
+                <div className='grid gap-3'>
+                  <FormFieldComboBox<typeof pendudukSchema>
+                    form={form}
+                    name='pekerjaan'
+                    label='Pekerjaan'
+                    values={PekerjaanEnum.options}
+                    description='Silahkan pilih pekerjaan'
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className='grid auto-rows-max items-start gap-4'>
+            <Card>
+              <CardHeader>
                 <CardTitle>Alamat</CardTitle>
                 <CardDescription>
                   Informasi alamat penduduk yang bersangkutan
@@ -220,7 +257,7 @@ export default function PendudukForm() {
                     name='desa'
                     label='Desa'
                     placeholder='Desa'
-                    maxLength={3}
+                    maxLength={128}
                     description='Silahkan masukkan Desa'
                   />
                 </div>
@@ -230,7 +267,7 @@ export default function PendudukForm() {
                     name='kecamatan'
                     label='Kecamatan'
                     placeholder='Kecamatan'
-                    maxLength={3}
+                    maxLength={128}
                     description='Silahkan masukkan Kecamatan'
                   />
                   <FormFieldInput<typeof pendudukSchema>
@@ -238,7 +275,7 @@ export default function PendudukForm() {
                     name='kotaKabupaten'
                     label='Kab/Kota'
                     placeholder='Kab/Kota'
-                    maxLength={3}
+                    maxLength={128}
                     description='Silahkan masukkan Kabupaten/Kota'
                   />
                 </div>
@@ -258,43 +295,6 @@ export default function PendudukForm() {
                     placeholder='Pilih Kewarganegaraan'
                     description='Silahkan pilih kewarganegaraan'
                     values={KewarganegaraanEnum.options}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          <div className='grid auto-rows-max items-start gap-4'>
-            <Card>
-              <CardHeader>
-                <CardTitle>Pendidikan dan Pekerjaan</CardTitle>
-                <CardDescription>
-                  Informasi pendidikan dan pekerjaan penduduk yang bersangkutan
-                </CardDescription>
-              </CardHeader>
-              <CardContent className='grid gap-4'>
-                <div className='grid grid-cols-2 gap-3'>
-                  <FormFieldComboBox<typeof pendudukSchema>
-                    form={form}
-                    name='pendidikanTerakhir'
-                    label='Pendidikan Terakhir'
-                    values={PendidikanTerakhirEnum.options}
-                    description='Silahkan pilih pendidikan terakhir'
-                  />
-                  <FormFieldComboBox<typeof pendudukSchema>
-                    form={form}
-                    name='pendidikanDitempuh'
-                    label='Pendidikan Ditempuh'
-                    values={PendidikanDitempuhEnum.options}
-                    description='Silahkan pilih pendidikan terakhir'
-                  />
-                </div>
-                <div className='grid gap-3'>
-                  <FormFieldComboBox<typeof pendudukSchema>
-                    form={form}
-                    name='pekerjaan'
-                    label='Pekerjaan'
-                    values={PekerjaanEnum.options}
-                    description='Silahkan pilih pekerjaan'
                   />
                 </div>
               </CardContent>
