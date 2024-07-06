@@ -1,6 +1,5 @@
 import { TypeOf, z } from 'zod';
 import { Path, UseFormReturn } from 'react-hook-form';
-import { JenisKelaminEnum } from '@/enums/penduduk';
 
 import {
   FormField,
