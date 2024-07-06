@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 
@@ -33,7 +35,7 @@ export const columns: ColumnDef<Penduduk>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const person = row.original;
+      const penduduk = row.original;
 
       return (
         <DropdownMenu>
@@ -45,10 +47,13 @@ export const columns: ColumnDef<Penduduk>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => alert(`Edit ${person.nik}`)}>
+            <DropdownMenuItem>
+              <Link href={`/admin/penduduk/${penduduk.nik}`}>Detail</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => alert(`Edit ${penduduk.nik}`)}>
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => alert(`Delete ${person.nik}`)}>
+            <DropdownMenuItem onClick={() => alert(`Delete ${penduduk.nik}`)}>
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
