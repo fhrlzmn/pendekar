@@ -34,12 +34,14 @@ import {
 import {
   AgamaEnum,
   JenisKelaminEnum,
+  PekerjaanEnum,
   PendidikanDitempuhEnum,
   PendidikanTerakhirEnum,
 } from '@/enums/penduduk';
 
 import FormFieldInput from '@/components/form-field/input';
 import FormFieldComboBox from '@/components/form-field/combo-box';
+import FormFieldSelect from '@/components/form-field/select';
 
 export default function PendudukForm() {
   const form = useForm<z.infer<typeof pendudukSchema>>({
@@ -137,65 +139,22 @@ export default function PendudukForm() {
                   description='Silahkan masukkan nama lengkap penduduk'
                 />
               </div>
-              <div className='grid  grid-cols-[1fr_0.8fr] gap-3'>
-                <FormField
-                  control={form.control}
+              <div className='grid  grid-cols-[1fr_0.5fr] gap-3'>
+                <FormFieldSelect<typeof pendudukSchema>
+                  form={form}
                   name='agama'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Agama</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder='Pilih Agama' />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {AgamaEnum.options.map((agama) => (
-                            <SelectItem key={agama} value={agama}>
-                              {agama}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormDescription>
-                        Silahkan pilih jenis kelamin
-                      </FormDescription>
-                    </FormItem>
-                  )}
+                  label='Agama'
+                  placeholder='Pilih Agama'
+                  description='Silahkan pilih agama'
+                  values={AgamaEnum.options}
                 />
-                <FormField
-                  control={form.control}
+                <FormFieldSelect<typeof pendudukSchema>
+                  form={form}
                   name='jenisKelamin'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Jenis Kelamin</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder='Pilih Jenis Kelamin' />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value={JenisKelaminEnum.enum.L}>
-                            Laki-laki
-                          </SelectItem>
-                          <SelectItem value={JenisKelaminEnum.enum.P}>
-                            Perempuan
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription>
-                        Silahkan pilih jenis kelamin
-                      </FormDescription>
-                    </FormItem>
-                  )}
+                  label='Jenis Kelamin'
+                  placeholder='Pilih Jenis Kelamin'
+                  description='Silahkan pilih jenis kelamin'
+                  values={[JenisKelaminEnum.enum.L, JenisKelaminEnum.enum.P]}
                 />
               </div>
               <div className='grid grid-cols-2 gap-3'>
