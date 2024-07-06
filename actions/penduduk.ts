@@ -1,7 +1,15 @@
 'use server';
 
-import { pendudukSchema } from '@/schema/penduduk';
 import { z } from 'zod';
+
+import {
+  PendidikanDitempuhEnum,
+  PendidikanTerakhirEnum,
+} from '@/enums/penduduk';
+
+import { pendudukSchema } from '@/schema/penduduk';
+import prisma from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 export async function addPenduduk(values: z.infer<typeof pendudukSchema>) {
   const validatedFields = pendudukSchema.safeParse(values);
@@ -10,5 +18,39 @@ export async function addPenduduk(values: z.infer<typeof pendudukSchema>) {
     return { error: 'Data tidak valid' };
   }
 
-  return { success: 'Data berhasil disimpan' };
+  // Validate pendidikanTerakhir and pendidikanDitempuh
+  if (
+    PendidikanDitempuhEnum.options.indexOf(values.pendidikanDitempuh) <=
+    PendidikanTerakhirEnum.options.indexOf(values.pendidikanTerakhir)
+  ) {
+    return {
+      error:
+        'Pendidikan ditempuh tidak boleh sebelum atau sama dengan pendidikan terakhir',
+    };
+  }
+
+  // Save data to database
+  try {
+    const existingPenduduk = await prisma.penduduk.findFirst({
+      where: {
+        nik: values.nik,
+      },
+    });
+
+    if (existingPenduduk) {
+      return { error: 'NIK sudah terdaftar' };
+    }
+
+    await prisma.penduduk.create({
+      data: {
+        ...values,
+        tanggalLahir: new Date(values.tanggalLahir),
+      },
+    });
+
+    revalidatePath('/admin/penduduk', 'page');
+    return { success: 'Data berhasil disimpan' };
+  } catch (error) {
+    return { error: 'Gagal menyimpan data' };
+  }
 }

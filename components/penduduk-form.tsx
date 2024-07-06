@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, RefreshCw } from 'lucide-react';
 
 import { Form } from '@/components/ui/form';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -40,6 +41,7 @@ import { addPenduduk } from '@/actions/penduduk';
 export default function PendudukForm() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof pendudukSchema>>({
     resolver: zodResolver(pendudukSchema),
@@ -85,6 +87,7 @@ export default function PendudukForm() {
             title: 'Berhasil',
             description: data.success,
           });
+          router.push('/admin/penduduk');
         }
       });
     });
@@ -114,7 +117,10 @@ export default function PendudukForm() {
             >
               Batal
             </Link>
-            <Button type='submit'>Simpan</Button>
+            <Button type='submit' disabled={isPending}>
+              {isPending && <RefreshCw className='mr-2 h-4 w-4 animate-spin' />}
+              Simpan
+            </Button>
           </div>
         </div>
         <div className='grid gap-4 md:grid-cols-[1fr_0.7fr]'>
