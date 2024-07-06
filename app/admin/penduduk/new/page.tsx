@@ -69,5 +69,12 @@ export default function Page() {
     });
   };
 
-  return <PendudukForm form={form} onSubmit={onSubmit} isPending={isPending} />;
+  return (
+    <PendudukForm
+      type='add'
+      form={form}
+      onSubmit={onSubmit}
+      isPending={isPending}
+    />
+  );
 }

@@ -64,12 +64,16 @@ export const columns: ColumnDef<Penduduk>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>
-              <Link href={`/admin/penduduk/${penduduk.nik}`}>Detail</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => alert(`Edit ${penduduk.nik}`)}>
-              Edit
-            </DropdownMenuItem>
+            <Link href={`/admin/penduduk/${penduduk.nik}`}>
+              <DropdownMenuItem className='cursor-pointer'>
+                Detail
+              </DropdownMenuItem>
+            </Link>
+            <Link href={`/admin/penduduk/${penduduk.nik}/edit`}>
+              <DropdownMenuItem className='cursor-pointer'>
+                Edit
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem onClick={() => alert(`Delete ${penduduk.nik}`)}>
               Delete
             </DropdownMenuItem>

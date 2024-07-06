@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ChevronLeft, Trash } from 'lucide-react';
+import { ChevronLeft, Trash, UserCog } from 'lucide-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -45,7 +45,13 @@ export default async function PendudukDetail({ nik }: { nik: string }) {
           >
             <Trash className='h-4 w-4' />
           </Link>
-          <Button type='submit'>Edit</Button>
+          <Link
+            href={`/admin/penduduk/${nik}/edit`}
+            className={buttonVariants({ variant: 'default' })}
+          >
+            <UserCog className='h-4 w-4 mr-2' />
+            Edit
+          </Link>
         </div>
       </div>
       <div className='grid gap-4 md:grid-cols-[1fr_0.7fr]'>

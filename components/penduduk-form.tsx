@@ -33,12 +33,14 @@ import {
 import { pendudukSchema } from '@/schema/penduduk';
 
 interface PendudukFormProps {
+  type: 'add' | 'edit';
   form: UseFormReturn<z.infer<typeof pendudukSchema>>;
   onSubmit: (values: z.infer<typeof pendudukSchema>) => void;
   isPending: boolean;
 }
 
 export default function PendudukForm({
+  type,
   form,
   onSubmit,
   isPending,
@@ -58,7 +60,7 @@ export default function PendudukForm({
             <span className='sr-only'>Back</span>
           </Link>
           <h1 className='flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0'>
-            Tambah Penduduk
+            {type === 'add' ? 'Tambah Penduduk' : 'Edit Penduduk'}
           </h1>
           <div className='hidden items-center gap-2 md:ml-auto md:flex'>
             <Link
@@ -91,6 +93,7 @@ export default function PendudukForm({
                     placeholder='3201234567890001'
                     maxLength={16}
                     description='Silahkan masukkan NIK'
+                    disabled={type === 'edit'}
                   />
                   <FormFieldInput<typeof pendudukSchema>
                     form={form}

@@ -20,6 +20,7 @@ interface FormFieldInputProps<ZodObject extends z.AnyZodObject> {
   placeholder?: string | undefined;
   maxLength?: number | undefined;
   description?: string | undefined;
+  disabled?: boolean | undefined;
 }
 
 export default function FormFieldInput<const Schema extends z.AnyZodObject>({
@@ -30,6 +31,7 @@ export default function FormFieldInput<const Schema extends z.AnyZodObject>({
   placeholder,
   maxLength,
   description,
+  disabled = false,
 }: FormFieldInputProps<Schema>) {
   return (
     <FormField
@@ -43,6 +45,7 @@ export default function FormFieldInput<const Schema extends z.AnyZodObject>({
               type={type}
               placeholder={placeholder}
               maxLength={maxLength}
+              readOnly={disabled}
               {...field}
             />
           </FormControl>
