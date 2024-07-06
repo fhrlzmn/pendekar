@@ -19,13 +19,13 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
+  CommandList,
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
-import { CommandList } from 'cmdk';
 
 interface FormFieldComboBoxProps<ZodObject extends z.AnyZodObject> {
   form: UseFormReturn<z.infer<ZodObject>>;
@@ -65,8 +65,8 @@ export default function FormFieldComboBox<const Schema extends z.AnyZodObject>({
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className='w-full p-0'>
-              <Command>
+            <PopoverContent className='w-full p-0 relative'>
+              <Command className='max-h-72 overflow-auto'>
                 <CommandInput placeholder='Cari...' className='h-9' />
                 <CommandList>
                   <CommandEmpty>Tidak ditemukan.</CommandEmpty>
