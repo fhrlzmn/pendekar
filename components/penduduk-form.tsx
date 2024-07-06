@@ -114,7 +114,6 @@ export default function PendudukForm() {
                   form={form}
                   name='nik'
                   label='NIK'
-                  type='text'
                   placeholder='3201234567890001'
                   maxLength={16}
                   description='Silahkan masukkan NIK'
@@ -123,7 +122,6 @@ export default function PendudukForm() {
                   form={form}
                   name='noKK'
                   label='No. KK'
-                  type='text'
                   placeholder='3201234567890001'
                   maxLength={16}
                   description='Silahkan masukkan No. KK'
@@ -134,7 +132,6 @@ export default function PendudukForm() {
                   form={form}
                   name='nama'
                   label='Nama'
-                  type='text'
                   placeholder='Nama lengkap'
                   maxLength={255}
                   description='Silahkan masukkan nama lengkap penduduk'
@@ -206,7 +203,6 @@ export default function PendudukForm() {
                   form={form}
                   name='tempatLahir'
                   label='Tempat Lahir'
-                  type='text'
                   placeholder='Tempat lahir'
                   maxLength={128}
                   description='Silahkan masukkan tempat lahir'
@@ -234,7 +230,6 @@ export default function PendudukForm() {
                   form={form}
                   name='alamat'
                   label='Alamat'
-                  type='text'
                   placeholder='Alamat'
                   maxLength={128}
                   description='Silahkan masukkan alamat'
@@ -245,7 +240,6 @@ export default function PendudukForm() {
                   form={form}
                   name='rt'
                   label='RT'
-                  type='text'
                   placeholder='001'
                   maxLength={3}
                   description='No. RT'
@@ -254,7 +248,6 @@ export default function PendudukForm() {
                   form={form}
                   name='rw'
                   label='RW'
-                  type='text'
                   placeholder='002'
                   maxLength={3}
                   description='No. RW'
@@ -263,7 +256,6 @@ export default function PendudukForm() {
                   form={form}
                   name='desa'
                   label='Desa'
-                  type='text'
                   placeholder='Desa'
                   maxLength={3}
                   description='Silahkan masukkan Desa'
@@ -274,7 +266,6 @@ export default function PendudukForm() {
                   form={form}
                   name='kecamatan'
                   label='Kecamatan'
-                  type='text'
                   placeholder='Kecamatan'
                   maxLength={3}
                   description='Silahkan masukkan Kecamatan'
@@ -283,7 +274,6 @@ export default function PendudukForm() {
                   form={form}
                   name='kotaKabupaten'
                   label='Kab/Kota'
-                  type='text'
                   placeholder='Kab/Kota'
                   maxLength={3}
                   description='Silahkan masukkan Kabupaten/Kota'
@@ -294,7 +284,6 @@ export default function PendudukForm() {
                   form={form}
                   name='provinsi'
                   label='Provinsi'
-                  type='text'
                   placeholder='Provinsi'
                   maxLength={128}
                   description='Silahkan masukkan provinsi'

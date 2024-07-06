@@ -10,22 +10,23 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { HTMLInputTypeAttribute } from 'react';
 
 interface FormFieldInputProps<ZodObject extends z.AnyZodObject> {
   form: UseFormReturn<z.infer<ZodObject>>;
   name: keyof z.infer<ZodObject>;
   label: string;
-  type: string;
-  placeholder?: string;
-  maxLength?: number;
-  description?: string;
+  type?: HTMLInputTypeAttribute | undefined;
+  placeholder?: string | undefined;
+  maxLength?: number | undefined;
+  description?: string | undefined;
 }
 
 export default function FormFieldInput<const Schema extends z.AnyZodObject>({
   form,
   name,
   label,
-  type,
+  type = 'text',
   placeholder,
   maxLength,
   description,
