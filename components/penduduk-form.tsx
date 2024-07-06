@@ -24,7 +24,6 @@ import {
   CardTitle,
   CardContent,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -32,9 +31,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
-import { AgamaEnum, JenisKelaminEnum } from '@/enums/penduduk';
+import {
+  AgamaEnum,
+  JenisKelaminEnum,
+  PendidikanDitempuhEnum,
+  PendidikanTerakhirEnum,
+} from '@/enums/penduduk';
 
 import FormFieldInput from '@/components/form-field/input';
+import FormFieldComboBox from '@/components/form-field/combo-box';
 
 export default function PendudukForm() {
   const form = useForm<z.infer<typeof pendudukSchema>>({
@@ -305,7 +310,22 @@ export default function PendudukForm() {
               </CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
-              <div className='grid gap-3'></div>
+              <div className='grid grid-cols-2 gap-3'>
+                <FormFieldComboBox<typeof pendudukSchema>
+                  form={form}
+                  name='pendidikanTerakhir'
+                  label='Pendidikan Terakhir'
+                  values={PendidikanTerakhirEnum.options}
+                  description='Silahkan pilih pendidikan terakhir'
+                />
+                <FormFieldComboBox<typeof pendudukSchema>
+                  form={form}
+                  name='pendidikanDitempuh'
+                  label='Pendidikan Ditempuh'
+                  values={PendidikanDitempuhEnum.options}
+                  description='Silahkan pilih pendidikan terakhir'
+                />
+              </div>
             </CardContent>
           </Card>
         </div>

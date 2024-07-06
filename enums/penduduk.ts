@@ -14,7 +14,7 @@ export const JenisKelaminEnum = z.nativeEnum(JenisKelamin, {
   message: 'Jenis kelamin harus diisi',
 });
 
-export const PendidikanEnum = z.enum(
+export const PendidikanTerakhirEnum = z.enum(
   [
     'Tidak/Belum Sekolah',
     'Belum Tamat SD/Sederajat',
@@ -29,8 +29,16 @@ export const PendidikanEnum = z.enum(
     'Lainnya',
   ],
   {
-    required_error: 'Pendidikan harus diisi',
-    message: 'Pendidikan harus diisi',
+    required_error: 'Pendidikan terakhir harus diisi',
+    message: 'Pendidikan terakhir harus diisi',
+  }
+);
+
+export const PendidikanDitempuhEnum = z.enum(
+  [...PendidikanTerakhirEnum.options, 'Tidak Melanjutkan'],
+  {
+    required_error: 'Pendidikan yang ditempuh harus diisi',
+    message: 'Pendidikan yang ditempuh harus diisi',
   }
 );
 

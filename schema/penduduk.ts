@@ -5,7 +5,8 @@ import {
   JenisKelaminEnum,
   KewarganegaraanEnum,
   PekerjaanEnum,
-  PendidikanEnum,
+  PendidikanDitempuhEnum,
+  PendidikanTerakhirEnum,
   StatusDalamKeluargaEnum,
   StatusPerkawinanEnum,
 } from '@/enums/penduduk';
@@ -52,8 +53,8 @@ export const pendudukSchema = z.object({
     .string()
     .min(1, 'Provinsi harus diisi')
     .max(128, 'Provinsi harus kurang dari 128 karakter'),
-  pendidikanTerakhir: PendidikanEnum,
-  pendidikanDitempuh: PendidikanEnum.optional(),
+  pendidikanTerakhir: PendidikanTerakhirEnum,
+  pendidikanDitempuh: PendidikanDitempuhEnum,
   pekerjaan: PekerjaanEnum,
   statusPerkawinan: StatusPerkawinanEnum,
   statusDalamKeluarga: StatusDalamKeluargaEnum,

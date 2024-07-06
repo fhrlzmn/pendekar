@@ -5,14 +5,14 @@ import {
   JenisKelaminEnum,
   KewarganegaraanEnum,
   PekerjaanEnum,
-  PendidikanEnum,
+  PendidikanTerakhirEnum,
   StatusDalamKeluargaEnum,
   StatusPerkawinanEnum,
 } from '@/enums/penduduk';
 
 export type Agama = z.infer<typeof AgamaEnum>;
 export type JenisKelamin = z.infer<typeof JenisKelaminEnum>;
-export type Pendidikan = z.infer<typeof PendidikanEnum>;
+export type Pendidikan = z.infer<typeof PendidikanTerakhirEnum>;
 export type Pekerjaan = z.infer<typeof PekerjaanEnum>;
 export type StatusPerkawinan = z.infer<typeof StatusPerkawinanEnum>;
 export type StatusDalamKeluarga = z.infer<typeof StatusDalamKeluargaEnum>;
