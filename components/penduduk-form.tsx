@@ -1,11 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { UseFormReturn } from 'react-hook-form';
 import { ChevronLeft, RefreshCw } from 'lucide-react';
 
 import { Form } from '@/components/ui/form';
@@ -17,7 +14,6 @@ import {
   CardTitle,
   CardContent,
 } from '@/components/ui/card';
-import { useToast } from '@/components/ui/use-toast';
 
 import FormFieldInput from '@/components/form-field/input';
 import FormFieldComboBox from '@/components/form-field/combo-box';
@@ -36,63 +32,17 @@ import {
 
 import { pendudukSchema } from '@/schema/penduduk';
 
-import { addPenduduk } from '@/actions/penduduk';
+interface PendudukFormProps {
+  form: UseFormReturn<z.infer<typeof pendudukSchema>>;
+  onSubmit: (values: z.infer<typeof pendudukSchema>) => void;
+  isPending: boolean;
+}
 
-export default function PendudukForm() {
-  const [isPending, startTransition] = useTransition();
-  const { toast } = useToast();
-  const router = useRouter();
-
-  const form = useForm<z.infer<typeof pendudukSchema>>({
-    resolver: zodResolver(pendudukSchema),
-    defaultValues: {
-      nik: '',
-      noKK: '',
-      nama: '',
-      tempatLahir: '',
-      jenisKelamin: undefined,
-      agama: undefined,
-      alamat: '',
-      rt: '',
-      rw: '',
-      desa: '',
-      kecamatan: '',
-      kotaKabupaten: '',
-      provinsi: '',
-      pendidikanTerakhir: undefined,
-      pendidikanDitempuh: undefined,
-      pekerjaan: undefined,
-      statusPerkawinan: undefined,
-      statusDalamKeluarga: undefined,
-      kewarganegaraan: undefined,
-      namaAyah: '',
-      namaIbu: '',
-    },
-  });
-
-  const onSubmit = (values: z.infer<typeof pendudukSchema>) => {
-    startTransition(() => {
-      addPenduduk(values).then((data) => {
-        if (data.error) {
-          toast({
-            variant: 'destructive',
-            title: 'Oops! Ada kesalahan',
-            description: data.error,
-          });
-        }
-
-        if (data.success) {
-          toast({
-            variant: 'success',
-            title: 'Berhasil',
-            description: data.success,
-          });
-          router.push('/admin/penduduk');
-        }
-      });
-    });
-  };
-
+export default function PendudukForm({
+  form,
+  onSubmit,
+  isPending,
+}: PendudukFormProps) {
   return (
     <Form {...form}>
       <form
