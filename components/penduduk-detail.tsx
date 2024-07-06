@@ -14,6 +14,7 @@ import InputDisabled from '@/components/input-disabled';
 import prisma from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { formatDate } from '@/lib/utils';
+import DeletePenduduk from './delete-penduduk';
 
 export default async function PendudukDetail({ nik }: { nik: string }) {
   const penduduk = await prisma.penduduk.findUnique({
@@ -39,12 +40,7 @@ export default async function PendudukDetail({ nik }: { nik: string }) {
           Detail Penduduk
         </h1>
         <div className='items-center gap-2 ml-auto flex'>
-          <Link
-            href='/admin/penduduk'
-            className={buttonVariants({ variant: 'outline', size: 'icon' })}
-          >
-            <Trash className='h-4 w-4' />
-          </Link>
+          <DeletePenduduk nik={nik} />
           <Link
             href={`/admin/penduduk/${nik}/edit`}
             className={buttonVariants({ variant: 'default' })}

@@ -101,3 +101,28 @@ export async function updatePenduduk(values: z.infer<typeof pendudukSchema>) {
     return { error: 'Gagal menyimpan data' };
   }
 }
+
+export async function deletePenduduk(nik: string) {
+  try {
+    const existingPenduduk = await prisma.penduduk.findFirst({
+      where: {
+        nik,
+      },
+    });
+
+    if (!existingPenduduk) {
+      return { error: 'Penduduk tidak ditemukan' };
+    }
+
+    await prisma.penduduk.delete({
+      where: {
+        nik,
+      },
+    });
+
+    revalidatePath('/admin/penduduk', 'page');
+    return { success: 'Data berhasil dihapus' };
+  } catch (error) {
+    return { error: 'Gagal menghapus data' };
+  }
+}

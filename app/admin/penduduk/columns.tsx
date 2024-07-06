@@ -3,18 +3,12 @@
 import Link from 'next/link';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
+import { Pencil, Trash } from 'lucide-react';
 
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Penduduk } from '@prisma/client';
 import { formatDate } from '@/lib/utils';
+import DeletePenduduk from '@/components/delete-penduduk';
 
 export const columns: ColumnDef<Penduduk>[] = [
   {
@@ -32,6 +26,14 @@ export const columns: ColumnDef<Penduduk>[] = [
   {
     accessorKey: 'nama',
     header: 'Nama',
+    cell: ({ row }) => (
+      <Link
+        href={`/admin/penduduk/${row.original.nik}`}
+        className='hover:text-primary'
+      >
+        {row.original.nama}
+      </Link>
+    ),
   },
   {
     accessorKey: 'jenisKelamin',
@@ -50,35 +52,19 @@ export const columns: ColumnDef<Penduduk>[] = [
   },
   {
     id: 'actions',
-
     cell: ({ row }) => {
       const penduduk = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild className='w-4 text-end'>
-            <Button aria-haspopup='true' size='icon' variant='ghost'>
-              <MoreHorizontal className='h-4 w-4' />
-              <span className='sr-only'>Toggle menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link href={`/admin/penduduk/${penduduk.nik}`}>
-              <DropdownMenuItem className='cursor-pointer'>
-                Detail
-              </DropdownMenuItem>
-            </Link>
-            <Link href={`/admin/penduduk/${penduduk.nik}/edit`}>
-              <DropdownMenuItem className='cursor-pointer'>
-                Edit
-              </DropdownMenuItem>
-            </Link>
-            <DropdownMenuItem onClick={() => alert(`Delete ${penduduk.nik}`)}>
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className='flex gap-1'>
+          <Link
+            href={`/admin/penduduk/${penduduk.nik}/edit`}
+            className={buttonVariants({ variant: 'outline', size: 'icon' })}
+          >
+            <Pencil className='h-4 w-4' />
+          </Link>
+          <DeletePenduduk nik={penduduk.nik} />
+        </div>
       );
     },
   },
