@@ -7,14 +7,7 @@ import { ChevronLeft } from 'lucide-react';
 
 import { pendudukSchema } from '@/schema/penduduk';
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { Button, buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -24,13 +17,7 @@ import {
   CardTitle,
   CardContent,
 } from '@/components/ui/card';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui/select';
+
 import {
   AgamaEnum,
   JenisKelaminEnum,
