@@ -1,15 +1,14 @@
 'use client';
 
+import Link from 'next/link';
+import { useTransition } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronLeft } from 'lucide-react';
 
-import { pendudukSchema } from '@/schema/penduduk';
-
 import { Form } from '@/components/ui/form';
 import { Button, buttonVariants } from '@/components/ui/button';
-import Link from 'next/link';
 import {
   Card,
   CardHeader,
@@ -17,6 +16,11 @@ import {
   CardTitle,
   CardContent,
 } from '@/components/ui/card';
+import { useToast } from '@/components/ui/use-toast';
+
+import FormFieldInput from '@/components/form-field/input';
+import FormFieldComboBox from '@/components/form-field/combo-box';
+import FormFieldSelect from '@/components/form-field/select';
 
 import {
   AgamaEnum,
@@ -29,11 +33,14 @@ import {
   StatusPerkawinanEnum,
 } from '@/enums/penduduk';
 
-import FormFieldInput from '@/components/form-field/input';
-import FormFieldComboBox from '@/components/form-field/combo-box';
-import FormFieldSelect from '@/components/form-field/select';
+import { pendudukSchema } from '@/schema/penduduk';
+
+import { addPenduduk } from '@/actions/penduduk';
 
 export default function PendudukForm() {
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof pendudukSchema>>({
     resolver: zodResolver(pendudukSchema),
     defaultValues: {
@@ -62,7 +69,25 @@ export default function PendudukForm() {
   });
 
   const onSubmit = (values: z.infer<typeof pendudukSchema>) => {
-    console.log(values);
+    startTransition(() => {
+      addPenduduk(values).then((data) => {
+        if (data.error) {
+          toast({
+            variant: 'destructive',
+            title: 'Oops! Ada kesalahan',
+            description: data.error,
+          });
+        }
+
+        if (data.success) {
+          toast({
+            variant: 'success',
+            title: 'Berhasil',
+            description: data.success,
+          });
+        }
+      });
+    });
   };
 
   return (

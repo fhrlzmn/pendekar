@@ -28,7 +28,9 @@ export const pendudukSchema = z.object({
     .string()
     .min(1, 'Tempat lahir harus diisi')
     .max(128, 'Tempat lahir harus kurang dari 128 karakter'),
-  tanggalLahir: z.string().date('Tanggal lahir harus diisi'),
+  tanggalLahir: z
+    .string({ required_error: 'Tanggal lahir harus diisi' })
+    .date('Tanggal lahir harus diisi'),
   jenisKelamin: JenisKelaminEnum,
   agama: AgamaEnum,
   alamat: z
