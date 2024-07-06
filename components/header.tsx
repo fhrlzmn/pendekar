@@ -13,7 +13,7 @@ import NavigationMobile from '@/components/navigation/navigation-mobile';
 
 export default function Header({ type }: { type: 'user' | 'admin' }) {
   return (
-    <header className='flex h-14 items-center justify-between md:justify-end gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6'>
+    <header className='flex w-full sticky top-0 h-14 items-center justify-between md:justify-end gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6'>
       <NavigationMobile type={type} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
