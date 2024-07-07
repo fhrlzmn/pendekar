@@ -45,6 +45,7 @@ model AparatDesa {
   nik        String   @unique @db.VarChar(16)
   nama       String   @db.VarChar(255)
   jabatan    String   @db.VarChar(30)
+  nip        String?  @unique @db.VarChar(18)
   dibuatPada DateTime @default(now()) @map("dibuat_pada")
   diubahPada DateTime @updatedAt @map("diubah_pada")
 
