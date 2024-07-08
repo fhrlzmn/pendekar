@@ -35,26 +35,25 @@ export default function AddAparatForm({ penduduk }: AparatDesaFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof aparatDesaSchema>) => {
-    console.log(values);
-    // startTransition(() => {
-    //   addAparatDesa(values).then((data) => {
-    //     if (data.error) {
-    //       toast({
-    //         variant: 'destructive',
-    //         title: 'Oops! Ada kesalahan',
-    //         description: data.error,
-    //       });
-    //     }
-    //     if (data.success) {
-    //       toast({
-    //         variant: 'success',
-    //         title: 'Berhasil',
-    //         description: data.success,
-    //       });
-    //       router.push('/admin/aparatdesa');
-    //     }
-    //   });
-    // });
+    startTransition(() => {
+      addAparatDesa(values).then((data) => {
+        if (data.error) {
+          toast({
+            variant: 'destructive',
+            title: 'Oops! Ada kesalahan',
+            description: data.error,
+          });
+        }
+        if (data.success) {
+          toast({
+            variant: 'success',
+            title: 'Berhasil',
+            description: data.success,
+          });
+          router.push('/admin/aparatdesa');
+        }
+      });
+    });
   };
 
   return (
