@@ -5,4 +5,5 @@ export type NavLink = {
   path: string;
   label: string;
   icon: keyof typeof dynamicIconImports;
+  children?: NavLink[];
 };
