@@ -126,3 +126,22 @@ export async function updateAparatDesa(
     return { error: String(error) };
   }
 }
+
+export async function deleteAparatDesa(id: string) {
+  try {
+    await prisma.aparatDesa
+      .delete({
+        where: {
+          id: parseInt(id),
+        },
+      })
+      .catch((error) => {
+        return { error: 'Gagal menghapus data, ID tidak ditemukan' };
+      });
+
+    revalidatePath('/admin/penduduk', 'page');
+    return { success: 'Data berhasil dihapus' };
+  } catch (error) {
+    return { error: 'Gagal menghapus data' };
+  }
+}

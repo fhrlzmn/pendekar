@@ -14,6 +14,7 @@ import {
 import prisma from '@/lib/prisma';
 
 import InputDisabled from './input-disabled';
+import DeleteAparatDesa from './delete-aparat-desa';
 
 export default async function AparatDesaDetail({ id }: { id: string }) {
   if (isNaN(parseInt(id))) {
@@ -44,6 +45,7 @@ export default async function AparatDesaDetail({ id }: { id: string }) {
           Detail Aparat Desa
         </h1>
         <div className='hidden items-center gap-2 md:ml-auto md:flex'>
+          <DeleteAparatDesa id={id} />
           <Link
             href={`/admin/aparatdesa/${id}/edit`}
             className={buttonVariants({ variant: 'default' })}

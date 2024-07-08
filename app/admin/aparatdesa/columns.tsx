@@ -8,6 +8,7 @@ import { Pencil } from 'lucide-react';
 import DeletePenduduk from '@/components/delete-penduduk';
 import { buttonVariants } from '@/components/ui/button';
 import { formatDate } from '@/lib/utils';
+import DeleteAparatDesa from '@/components/delete-aparat-desa';
 
 export const columns: ColumnDef<AparatDesa>[] = [
   {
@@ -60,7 +61,7 @@ export const columns: ColumnDef<AparatDesa>[] = [
           >
             <Pencil className='h-4 w-4' />
           </Link>
-          <DeletePenduduk nik={aparat.nik} />
+          <DeleteAparatDesa id={aparat.id.toString()} />
         </div>
       );
     },
