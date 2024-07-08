@@ -10,6 +10,12 @@ import { usePathname } from 'next/navigation';
 const adminNavLinks: NavLink[] = [
   { id: 1, path: '/admin/dashboard', label: 'Dashboard', icon: 'house' },
   { id: 2, path: '/admin/penduduk', label: 'Penduduk', icon: 'book-user' },
+  {
+    id: 3,
+    path: '/admin/aparatdesa',
+    label: 'Aparat Desa',
+    icon: 'building-2',
+  },
   { id: 3, path: '/admin/account', label: 'Akun', icon: 'users' },
   {
     id: 4,
