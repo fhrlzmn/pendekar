@@ -65,7 +65,7 @@ export default function FormFieldComboBox<const Schema extends z.AnyZodObject>({
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className='w-full p-0 relative'>
+            <PopoverContent className='w-full p-0 popover-content-width-full'>
               <Command className='max-h-72 overflow-auto'>
                 <CommandInput placeholder='Cari...' className='h-9' />
                 <CommandList>
