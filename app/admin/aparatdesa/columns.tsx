@@ -55,7 +55,7 @@ export const columns: ColumnDef<AparatDesa>[] = [
       return (
         <div className='flex gap-1'>
           <Link
-            href={`/admin/aparatdesa/${aparat.nik}/edit`}
+            href={`/admin/aparatdesa/${aparat.id}/edit`}
             className={buttonVariants({ variant: 'outline', size: 'icon' })}
           >
             <Pencil className='h-4 w-4' />

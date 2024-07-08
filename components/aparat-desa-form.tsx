@@ -94,70 +94,72 @@ export default function AparatDesaForm({
               </CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
-              <div className='grid gap-3'>
-                <Popover open={open} onOpenChange={setOpen}>
-                  <p className='text-sm font-medium'>Pilih Penduduk</p>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant='outline'
-                      role='combobox'
-                      aria-expanded={open}
-                      className='w-full justify-between'
-                    >
-                      {value
-                        ? pendudukList?.find((item) => item === value)
-                        : 'Silahkan pilih'}
-                      <ArrowUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-                    </Button>
-                  </PopoverTrigger>
-                  {!value && (
-                    <p className={'text-sm font-medium text-destructive'}>
-                      Pilih penduduk terlebih dahulu
+              {type === 'add' && (
+                <div className='grid gap-3'>
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <p className='text-sm font-medium'>Pilih Penduduk</p>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant='outline'
+                        role='combobox'
+                        aria-expanded={open}
+                        className='w-full justify-between'
+                      >
+                        {value
+                          ? pendudukList?.find((item) => item === value)
+                          : 'Silahkan pilih'}
+                        <ArrowUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+                      </Button>
+                    </PopoverTrigger>
+                    {!value && (
+                      <p className={'text-sm font-medium text-destructive'}>
+                        Pilih penduduk terlebih dahulu
+                      </p>
+                    )}
+                    <PopoverContent className='popover-content-width-full p-0'>
+                      <Command>
+                        <CommandInput placeholder='Cari...' className='h-9' />
+                        <CommandEmpty>Tidak ditemukan.</CommandEmpty>
+                        <CommandList>
+                          <CommandGroup>
+                            {pendudukList?.map((item) => (
+                              <CommandItem
+                                key={item}
+                                value={item}
+                                onSelect={(currentValue) => {
+                                  setValue(
+                                    currentValue === value ? '' : currentValue
+                                  );
+                                  form.setValue(
+                                    'nik',
+                                    currentValue.split(' - ')[0]
+                                  );
+                                  form.setValue(
+                                    'nama',
+                                    currentValue.split(' - ')[1]
+                                  );
+                                  setOpen(false);
+                                }}
+                              >
+                                {item}
+                                <Check
+                                  className={cn(
+                                    'ml-auto h-4 w-4',
+                                    value === item ? 'opacity-100' : 'opacity-0'
+                                  )}
+                                />
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                    <p className='text-[0.8rem] font-medium text-muted-foreground'>
+                      Silahkan pilih penduduk
                     </p>
-                  )}
-                  <PopoverContent className='popover-content-width-full p-0'>
-                    <Command>
-                      <CommandInput placeholder='Cari...' className='h-9' />
-                      <CommandEmpty>Tidak ditemukan.</CommandEmpty>
-                      <CommandList>
-                        <CommandGroup>
-                          {pendudukList?.map((item) => (
-                            <CommandItem
-                              key={item}
-                              value={item}
-                              onSelect={(currentValue) => {
-                                setValue(
-                                  currentValue === value ? '' : currentValue
-                                );
-                                form.setValue(
-                                  'nik',
-                                  currentValue.split(' - ')[0]
-                                );
-                                form.setValue(
-                                  'nama',
-                                  currentValue.split(' - ')[1]
-                                );
-                                setOpen(false);
-                              }}
-                            >
-                              {item}
-                              <Check
-                                className={cn(
-                                  'ml-auto h-4 w-4',
-                                  value === item ? 'opacity-100' : 'opacity-0'
-                                )}
-                              />
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                  <p className='text-[0.8rem] font-medium text-muted-foreground'>
-                    Silahkan pilih penduduk
-                  </p>
-                </Popover>
-              </div>
+                  </Popover>
+                </div>
+              )}
               <div className='grid grid-cols-2 gap-3'>
                 <FormFieldInput<typeof aparatDesaSchema>
                   form={form}
@@ -193,7 +195,6 @@ export default function AparatDesaForm({
                   placeholder='Nomor Induk Pegawai'
                   maxLength={18}
                   description='Nomor Induk Pegawai'
-                  disabled={type === 'edit'}
                 />
               </div>
             </CardContent>
