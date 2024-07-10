@@ -3,11 +3,12 @@
 import Link from 'next/link';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Pencil } from 'lucide-react';
+import { RefreshCcw } from 'lucide-react';
 
 import { buttonVariants } from '@/components/ui/button';
 import { User } from '@prisma/client';
 import { formatDate } from '@/lib/utils';
+import ResetUserAccount from '@/components/reset-user-account';
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -51,12 +52,7 @@ export const columns: ColumnDef<User>[] = [
 
       return (
         <div className='flex gap-1'>
-          <Link
-            href={`/admin/account/user/${user.id}/edit`}
-            className={buttonVariants({ variant: 'outline', size: 'icon' })}
-          >
-            <Pencil className='h-4 w-4' />
-          </Link>
+          <ResetUserAccount id={String(user.id)} />
         </div>
       );
     },
