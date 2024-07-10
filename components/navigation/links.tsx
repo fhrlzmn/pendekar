@@ -37,7 +37,7 @@ const adminNavLinks: NavLink[] = [
       { id: 5, path: '/admin/account/users', label: 'Pengguna', icon: 'users' },
       {
         id: 6,
-        path: '/admin/account/administrator',
+        path: '/admin/account/admins',
         label: 'Administrator',
         icon: 'users',
       },
