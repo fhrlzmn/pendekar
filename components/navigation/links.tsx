@@ -1,23 +1,24 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Flame } from 'lucide-react';
-import DynamicIcon from '@/components/dynamic-icon';
+
 import { cn } from '@/lib/utils';
 import { NavLink } from '@/types/nav-link';
-import { usePathname } from 'next/navigation';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '../ui/accordion';
+} from '@/components/ui/accordion';
+import DynamicIcon from '@/components/dynamic-icon';
 
 const adminNavLinks: NavLink[] = [
-  { id: 1, path: '/admin/dashboard', label: 'Dashboard', icon: 'house' },
-  { id: 2, path: '/admin/penduduk', label: 'Penduduk', icon: 'book-user' },
+  { id: 0, path: '/admin/dashboard', label: 'Dashboard', icon: 'house' },
+  { id: 1, path: '/admin/penduduk', label: 'Penduduk', icon: 'book-user' },
   {
-    id: 3,
+    id: 2,
     path: '/admin/aparatdesa',
     label: 'Aparat Desa',
     icon: 'building-2',
