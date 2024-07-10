@@ -125,3 +125,34 @@ export async function generateAdminAccount(
     return { error: 'Gagal membuat akun Admin' };
   }
 }
+
+export async function resetAdminAccount(id: string) {
+  try {
+    const admin = await prisma.admin.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!admin) {
+      return { error: 'Admin tidak ditemukan' };
+    }
+
+    const password = await generateAdminPassword();
+
+    // Save data to database
+    await prisma.admin.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        password: password.hashedPassword,
+      },
+    });
+
+    revalidatePath('/admin/account/users', 'page');
+    return { success: 'Berhasil reset password', password: password.password };
+  } catch (error) {
+    return { error: 'Gagal melakukan reset password' };
+  }
+}

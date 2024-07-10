@@ -53,12 +53,12 @@ export default function AddAdminAccountForm({
           toast({
             variant: 'success',
             title: `Password: ${data.password}`,
-            description: `${data.success}, tulis PIN ini untuk login`,
+            description: `${data.success}, gunakan password ini untuk login`,
             className:
               'flex fixed justify-center items-center gap-4 inset-0 mx-auto mt-16 h-max w-max',
             action: (
               <ToastAction altText='Kembali' asChild>
-                <Link href='/admin/account/users'>Kembali</Link>
+                <Link href='/admin/account/admins'>Kembali</Link>
               </ToastAction>
             ),
           });

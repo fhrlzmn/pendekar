@@ -6,6 +6,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { Admin } from '@prisma/client';
 import { formatDate } from '@/lib/utils';
+import ResetAdminAccount from '@/components/reset-admin-account';
 
 export const columns: ColumnDef<Admin>[] = [
   {
@@ -49,7 +50,7 @@ export const columns: ColumnDef<Admin>[] = [
 
       return (
         <div className='flex gap-1'>
-          {/* <ResetUserAccount id={String(user.id)} /> */}
+          <ResetAdminAccount id={String(admin.id)} />
         </div>
       );
     },
