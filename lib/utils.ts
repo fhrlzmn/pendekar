@@ -49,3 +49,20 @@ export async function generateUserPin(): Promise<UserPin> {
 
   return { pin: randomSixDigitNumber, hashedPin };
 }
+
+type AdminPassword = {
+  password: string;
+  hashedPassword: string;
+};
+
+export async function generateAdminPassword(): Promise<AdminPassword> {
+  const charset =
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[{]};:\'",<.>/?';
+  const password = Array.from({ length: 6 }, () =>
+    charset.charAt(Math.floor(Math.random() * charset.length))
+  ).join('');
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  return { password, hashedPassword };
+}

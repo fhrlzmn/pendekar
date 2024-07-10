@@ -1,8 +1,8 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { generateUserPin } from '@/lib/utils';
-import { userAccountSchema } from '@/schema/accounts';
+import { generateAdminPassword, generateUserPin } from '@/lib/utils';
+import { adminAccountSchema, userAccountSchema } from '@/schema/accounts';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -72,5 +72,56 @@ export async function resetUserAccount(id: string) {
     return { success: 'Berhasil reset password', pin: password.pin };
   } catch (error) {
     return { error: 'Gagal melakukan reset password' };
+  }
+}
+
+export async function generateAdminAccount(
+  values: z.infer<typeof adminAccountSchema>
+) {
+  const validatedFields = adminAccountSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: 'Data tidak valid' };
+  }
+
+  try {
+    const existingAdmin = await prisma.admin.findUnique({
+      where: {
+        aparatDesaId: parseInt(values.aparatDesaId),
+      },
+    });
+
+    if (existingAdmin) {
+      return { error: 'Admin sudah terdaftar' };
+    }
+
+    const existingUsername = await prisma.admin.findUnique({
+      where: {
+        username: values.username,
+      },
+    });
+
+    if (existingUsername) {
+      return { error: 'Username sudah ada' };
+    }
+
+    const password = await generateAdminPassword();
+
+    await prisma.admin.create({
+      data: {
+        nama: values.nama,
+        username: values.username,
+        password: password.hashedPassword,
+        aparatDesaId: parseInt(values.aparatDesaId),
+      },
+    });
+
+    revalidatePath('/admin/account/users', 'page');
+    return {
+      success: 'Berhasil membuat akun Admin',
+      password: password.password,
+    };
+  } catch (error) {
+    return { error: 'Gagal membuat akun Admin' };
   }
 }
