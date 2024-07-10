@@ -75,7 +75,7 @@ export function AdminNavLinksDesktop() {
             key={link.id}
             type='single'
             className='px-3 py-0'
-            collapsible
+            defaultValue={link.label}
           >
             <AccordionItem value={link.label} className='border-b-0'>
               <AccordionTrigger className='text-muted-foreground hover:text-primary hover:no-underline py-2'>
@@ -141,7 +141,7 @@ export function AdminNavLinksMobile() {
             key={link.id}
             type='single'
             className='px-3 py-0 mx-[-0.65rem] text-lg'
-            collapsible
+            defaultValue={link.label}
           >
             <AccordionItem value={link.label} className='border-b-0'>
               <AccordionTrigger className='text-lg text-muted-foreground hover:text-foreground hover:no-underline py-2'>
