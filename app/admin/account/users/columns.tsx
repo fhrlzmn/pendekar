@@ -8,7 +8,6 @@ import { Pencil } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { User } from '@prisma/client';
 import { formatDate } from '@/lib/utils';
-import DeletePenduduk from '@/components/delete-penduduk';
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -58,7 +57,6 @@ export const columns: ColumnDef<User>[] = [
           >
             <Pencil className='h-4 w-4' />
           </Link>
-          {/* <DeletePenduduk nik={penduduk.nik} /> */}
         </div>
       );
     },

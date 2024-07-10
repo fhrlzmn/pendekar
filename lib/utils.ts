@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import prisma from './prisma';
+import bcrypt from 'bcryptjs';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -35,4 +35,17 @@ export function formatDateToInputDate(date: Date): string {
   const year = date.getFullYear();
 
   return `${year}-${month}-${day}`;
+}
+
+type UserPin = {
+  pin: number;
+  hashedPin: string;
+};
+
+export async function generateUserPin(): Promise<UserPin> {
+  const randomSixDigitNumber = Math.floor(100000 + Math.random() * 900000);
+
+  const hashedPin = await bcrypt.hash(String(randomSixDigitNumber), 10);
+
+  return { pin: randomSixDigitNumber, hashedPin };
 }

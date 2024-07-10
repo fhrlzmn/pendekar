@@ -2,10 +2,11 @@ import Link from 'next/link';
 import { UserPlus } from 'lucide-react';
 import { User } from '@prisma/client';
 
-import { buttonVariants } from '@/components/ui/button';
-
 import prisma from '@/lib/prisma';
+
+import { buttonVariants } from '@/components/ui/button';
 import DataTable from '@/components/table/data-table';
+
 import { columns } from './columns';
 
 export default async function Page() {
