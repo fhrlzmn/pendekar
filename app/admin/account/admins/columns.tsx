@@ -29,7 +29,7 @@ export const columns: ColumnDef<Admin>[] = [
         href={`/admin/aparatdesa/${row.original.aparatDesaId}`}
         className='hover:text-primary'
       >
-        {row.original.username}
+        {row.original.nama}
       </Link>
     ),
   },
