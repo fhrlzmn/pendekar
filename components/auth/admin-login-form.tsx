@@ -46,8 +46,8 @@ export default function AdminLoginForm() {
   const onSubmit = (values: z.infer<typeof adminLoginSchema>) => {
     startTransition(() => {
       adminLogin(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+        setError(data?.error);
+        setSuccess(data?.success);
       });
     });
   };
