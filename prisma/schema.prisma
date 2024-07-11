@@ -89,7 +89,7 @@ model Admin {
 model JenisSurat {
   id   Int    @id @default(autoincrement())
   nama String @unique @db.VarChar(255)
-  kode String @unique @db.VarChar(5)
+  kode String @unique @db.VarChar(10)
 
   surat           Surat[]
   permohonanSurat PermohonanSurat[]
@@ -101,14 +101,13 @@ model PermohonanSurat {
   id               Int              @id @default(autoincrement())
   status           StatusPermohonan
   nikPemohon       String           @map("nik_pemohon") @db.VarChar(16)
-  keperluan        String           @db.Text()
-  keterangan       String           @db.Text()
   tanggalPengajuan DateTime         @default(now()) @map("tanggal_pengajuan") @db.Date
-  dataTambahan     Json?            @map("data_tambahan")
-  jenisSuratId     Int              @map("jenis_surat_id")
+  data             Json?            @map("data")
+  keterangan       String?          @db.Text()
+  kodeJenisSurat   String           @map("kode_jenis_surat")
 
   penduduk   Penduduk   @relation(fields: [nikPemohon], references: [nik])
-  jenisSurat JenisSurat @relation(fields: [jenisSuratId], references: [id])
+  jenisSurat JenisSurat @relation(fields: [kodeJenisSurat], references: [kode])
   surat      Surat?
 
   @@map("permohonan_surat")
@@ -118,17 +117,16 @@ model Surat {
   id               Int      @id @default(autoincrement())
   nomorSurat       String   @unique @map("nomor_surat") @db.VarChar(30)
   nikPemohon       String   @map("nik_pemohon") @db.VarChar(16)
-  keperluan        String   @db.Text()
-  keterangan       String   @db.Text()
-  dataTambahan     Json?    @map("data_tambahan")
+  data             Json?    @map("data")
+  keterangan       String?  @db.Text()
   tanggalPengajuan DateTime @default(now()) @map("tanggal_pengajuan") @db.Date
   berlakuHingga    DateTime @map("berlaku_hingga") @db.Date
   permohonanId     Int      @unique @map("permohonan_id")
-  jenisSuratId     Int      @map("jenis_surat_id")
+  kodeJenisSurat   String   @map("kode_jenis_surat")
 
   penduduk   Penduduk        @relation(fields: [nikPemohon], references: [nik])
   permohonan PermohonanSurat @relation(fields: [permohonanId], references: [id])
-  jenisSurat JenisSurat      @relation(fields: [jenisSuratId], references: [id])
+  jenisSurat JenisSurat      @relation(fields: [kodeJenisSurat], references: [kode])
 
   @@map("surat")
 }
