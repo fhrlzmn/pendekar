@@ -1,5 +1,7 @@
 import { CircleUser } from 'lucide-react';
 
+import { auth } from '@/auth';
+
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,8 +12,11 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import NavigationMobile from '@/components/navigation/navigation-mobile';
+import LogoutButton from '@/components/auth/logout-button';
 
-export default function Header({ type }: { type: 'user' | 'admin' }) {
+export default async function Header({ type }: { type: 'user' | 'admin' }) {
+  const session = await auth();
+
   return (
     <header className='flex w-full sticky top-0 h-14 items-center justify-between md:justify-end gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6'>
       <NavigationMobile type={type} />
@@ -23,12 +28,11 @@ export default function Header({ type }: { type: 'user' | 'admin' }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{session?.user?.name || null}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <LogoutButton />
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
