@@ -1,9 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { RefreshCw } from 'lucide-react';
 
 import {
   Card,
@@ -28,12 +30,12 @@ import FormError from '@/components/form-error';
 import FormSuccess from '@/components/form-success';
 import { adminLoginSchema } from '@/schema/login';
 import { adminLogin } from '@/actions/login';
-import { RefreshCw } from 'lucide-react';
 
 export default function AdminLoginForm() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof adminLoginSchema>>({
     resolver: zodResolver(adminLoginSchema),
@@ -48,6 +50,10 @@ export default function AdminLoginForm() {
       adminLogin(values).then((data) => {
         setError(data?.error);
         setSuccess(data?.success);
+
+        if (data?.success) {
+          router.push('/admin/dashboard');
+        }
       });
     });
   };

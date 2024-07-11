@@ -5,6 +5,8 @@ import { useState, useTransition } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { RefreshCw } from 'lucide-react';
 
 import {
   Card,
@@ -27,14 +29,15 @@ import { Input } from '@/components/ui/input';
 import { Button, buttonVariants } from '@/components/ui/button';
 import FormError from '@/components/form-error';
 import FormSuccess from '@/components/form-success';
+
 import { userLoginSchema } from '@/schema/login';
 import { userLogin } from '@/actions/login';
-import { RefreshCw } from 'lucide-react';
 
 export default function UserLoginForm() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof userLoginSchema>>({
     resolver: zodResolver(userLoginSchema),
@@ -47,8 +50,12 @@ export default function UserLoginForm() {
   const onSubmit = (values: z.infer<typeof userLoginSchema>) => {
     startTransition(() => {
       userLogin(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+        setError(data?.error);
+        setSuccess(data?.success);
+
+        if (data?.success) {
+          router.push('/user/dashboard');
+        }
       });
     });
   };

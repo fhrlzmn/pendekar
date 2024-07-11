@@ -19,7 +19,7 @@ export async function adminLogin(values: z.infer<typeof adminLoginSchema>) {
     await signIn('admin', {
       username,
       password,
-      redirectTo: '/admin/dashboard',
+      redirect: false,
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -44,6 +44,29 @@ export async function userLogin(values: z.infer<typeof userLoginSchema>) {
 
   if (!validatedFields.success) {
     return { error: 'NIK atau PIN salah' };
+  }
+
+  const { nik, pin } = validatedFields.data;
+
+  try {
+    await signIn('user', {
+      nik,
+      pin,
+      redirect: false,
+    });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return { error: 'NIK atau PIN salah' };
+        case 'CallbackRouteError':
+          return { error: 'NIK atau PIN salah' };
+        default:
+          return { error: 'Terdapat kesalahan' };
+      }
+    }
+
+    throw error;
   }
 
   return { success: 'Login sukses' };
