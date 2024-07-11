@@ -114,7 +114,7 @@ export default function PendudukForm({
                     description='Silahkan masukkan nama lengkap penduduk'
                   />
                 </div>
-                <div className='grid  grid-cols-[1fr_0.5fr] gap-3'>
+                <div className='grid grid-cols-[1fr_0.5fr] gap-3'>
                   <FormFieldSelect<typeof pendudukSchema>
                     form={form}
                     name='agama'
