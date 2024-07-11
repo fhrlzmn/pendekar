@@ -48,7 +48,13 @@ const adminNavLinks: NavLink[] = [
 
 const userNavLinks: NavLink[] = [
   { id: 1, path: '/user/dashboard', label: 'Dashboard', icon: 'house' },
-  { id: 2, path: '/user/profile', label: 'Profil', icon: 'user' },
+  { id: 2, path: '/user/permohonan', label: 'Permohonan Saya', icon: 'mails' },
+  {
+    id: 3,
+    path: '/user/ajukan',
+    label: 'Ajukan Permohonan',
+    icon: 'mail-plus',
+  },
 ];
 
 export function AdminNavLinksDesktop() {
