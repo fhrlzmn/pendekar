@@ -93,3 +93,42 @@ export const skklhrSchema = z.object({
     .min(1, 'Hubungan pelapor harus diisi')
     .max(255, 'Hubungan pelapor harus kurang dari 255 karakter'),
 });
+
+export const skkmtnSchema = z.object({
+  nama: z
+    .string()
+    .min(1, 'Nama orang meninggal harus diisi')
+    .max(255, 'Nama orang meninggal harus kurang dari 255 karakter'),
+  nik: z
+    .string()
+    .regex(new RegExp('^\\d+$'), 'NIK harus berisi angka')
+    .min(16, 'NIK harus 16 karakter'),
+  jenisKelamin: JenisKelaminEnum,
+  tempatLahir: z
+    .string()
+    .min(1, 'Tempat lahir harus diisi')
+    .max(128, 'Tempat lahir harus kurang dari 128 karakter'),
+  tanggalLahir: z.string().date('Tanggal lahir anak harus diisi'),
+  agama: AgamaEnum,
+  alamat: z
+    .string()
+    .min(1, 'Alamat harus diisi')
+    .max(255, 'Alamat harus kurang dari 255 karakter'),
+  tempatMeninggal: z
+    .string()
+    .min(1, 'Tempat lahir harus diisi')
+    .max(128, 'Tempat lahir harus kurang dari 128 karakter'),
+  tanggalMeninggal: z.string().date('Tanggal lahir anak harus diisi'),
+  pukulMeninggal: z
+    .string()
+    .regex(new RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/))
+    .min(1, 'Pukul lahir anak harus diisi'),
+  sebabMeninggal: z
+    .string()
+    .min(1, 'Sebab meninggal harus diisi')
+    .max(255, 'Sebab meninggal harus kurang dari 255 karakter'),
+  hubunganPelapor: z
+    .string()
+    .min(1, 'Hubungan pelapor harus diisi')
+    .max(255, 'Hubungan pelapor harus kurang dari 255 karakter'),
+});
