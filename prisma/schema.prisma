@@ -106,8 +106,8 @@ model PermohonanSurat {
   keterangan       String?          @db.Text()
   kodeJenisSurat   String           @map("kode_jenis_surat")
 
-  penduduk   Penduduk   @relation(fields: [nikPemohon], references: [nik])
-  jenisSurat JenisSurat @relation(fields: [kodeJenisSurat], references: [kode])
+  penduduk   Penduduk   @relation(fields: [nikPemohon], references: [nik], onUpdate: Cascade, onDelete: Cascade)
+  jenisSurat JenisSurat @relation(fields: [kodeJenisSurat], references: [kode], onUpdate: Cascade, onDelete: Cascade)
   surat      Surat?
 
   @@map("permohonan_surat")
@@ -119,14 +119,14 @@ model Surat {
   nikPemohon       String   @map("nik_pemohon") @db.VarChar(16)
   data             Json?    @map("data")
   keterangan       String?  @db.Text()
-  tanggalPengajuan DateTime @default(now()) @map("tanggal_pengajuan") @db.Date
+  tanggalPengajuan DateTime @default(now()) @map("tanggal_pengajuan") @db.Time()
   berlakuHingga    DateTime @map("berlaku_hingga") @db.Date
-  permohonanId     Int      @unique @map("permohonan_id")
+  permohonanId     Int?     @unique @map("permohonan_id")
   kodeJenisSurat   String   @map("kode_jenis_surat")
 
-  penduduk   Penduduk        @relation(fields: [nikPemohon], references: [nik])
-  permohonan PermohonanSurat @relation(fields: [permohonanId], references: [id])
-  jenisSurat JenisSurat      @relation(fields: [kodeJenisSurat], references: [kode])
+  penduduk   Penduduk         @relation(fields: [nikPemohon], references: [nik], onUpdate: Cascade, onDelete: Cascade)
+  permohonan PermohonanSurat? @relation(fields: [permohonanId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  jenisSurat JenisSurat       @relation(fields: [kodeJenisSurat], references: [kode], onUpdate: Cascade, onDelete: Cascade)
 
   @@map("surat")
 }
