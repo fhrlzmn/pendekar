@@ -8,6 +8,7 @@ import {
   skklhrSchema,
   skkmtnSchema,
   sktmSchema,
+  skuSchema,
 } from '@/schema/pengajuan';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -143,6 +144,49 @@ export async function ajukanSkkmtn(
         nikPemohon: penduduk.nik,
         data,
         kodeJenisSurat: 'SKKMTN',
+      },
+    });
+
+    revalidatePath('/user/permohonan', 'page');
+    return { success: 'Pengajuan berhasil dikirim' };
+  } catch (error) {
+    return { error: 'Gagal mengajukan surat' };
+  }
+}
+
+export async function ajukanSku(
+  values: z.infer<typeof skuSchema>,
+  penduduk: Penduduk
+) {
+  const validatedFields = skuSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: 'Data tidak valid' };
+  }
+
+  const data = {
+    nama: penduduk.nama,
+    nik: penduduk.nik,
+    noKk: penduduk.noKK,
+    ttl: `${penduduk.tempatLahir}, ${penduduk.tanggalLahir}`,
+    jenisKelamin: penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
+    alamat: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
+    agama: penduduk.agama,
+    status: penduduk.statusPerkawinan,
+    pendidikan: penduduk.pendidikanTerakhir,
+    pekerjaan: penduduk.pekerjaan,
+    kewarganegaraan: penduduk.kewarganegaraan,
+    ...validatedFields.data,
+  } as Prisma.JsonObject;
+
+  try {
+    await prisma.permohonanSurat.create({
+      data: {
+        status: StatusPermohonan.Dikirim,
+        keterangan: 'Pengajuan sudah dikirim',
+        nikPemohon: penduduk.nik,
+        data,
+        kodeJenisSurat: 'SKU',
       },
     });
 

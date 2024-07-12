@@ -132,3 +132,14 @@ export const skkmtnSchema = z.object({
     .min(1, 'Hubungan pelapor harus diisi')
     .max(255, 'Hubungan pelapor harus kurang dari 255 karakter'),
 });
+
+export const skuSchema = z.object({
+  keperluan: z
+    .string()
+    .min(1, 'Keperluan harus diisi')
+    .max(255, 'Keperluan harus kurang dari 255 karakter'),
+  namaUsaha: z
+    .string()
+    .min(1, 'Nama usaha harus diisi')
+    .max(255, 'Nama usaha harus kurang dari 255 karakter'),
+});
