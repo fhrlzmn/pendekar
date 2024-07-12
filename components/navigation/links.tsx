@@ -37,6 +37,12 @@ const adminNavLinks: NavLink[] = [
       },
       {
         id: 5,
+        path: '/admin/surat/list',
+        label: 'Daftar Surat',
+        icon: 'mails',
+      },
+      {
+        id: 6,
         path: '/admin/surat/cetak',
         label: 'Cetak Surat',
         icon: 'mail-plus',
@@ -44,14 +50,14 @@ const adminNavLinks: NavLink[] = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     path: '#',
     label: 'Akun',
     icon: 'fingerprint',
     children: [
-      { id: 7, path: '/admin/account/users', label: 'Pengguna', icon: 'users' },
+      { id: 8, path: '/admin/account/users', label: 'Pengguna', icon: 'users' },
       {
-        id: 8,
+        id: 9,
         path: '/admin/account/admins',
         label: 'Administrator',
         icon: 'users',
@@ -105,7 +111,7 @@ export function AdminNavLinksDesktop() {
                   {link.label}
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className='pb-0'>
                 {link.children?.map((child) => (
                   <Link
                     key={child.id}

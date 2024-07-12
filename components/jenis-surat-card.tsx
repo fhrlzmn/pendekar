@@ -12,9 +12,14 @@ import {
 interface JenisSuratCardProps {
   path: string;
   title: string;
+  description?: string;
 }
 
-export default function JenisSuratCard({ path, title }: JenisSuratCardProps) {
+export default function JenisSuratCard({
+  path,
+  title,
+  description,
+}: JenisSuratCardProps) {
   return (
     <Link href={path} className='group'>
       <Card className='group-hover:bg-primary flex flex-col justify-center items-center'>
@@ -25,7 +30,7 @@ export default function JenisSuratCard({ path, title }: JenisSuratCardProps) {
           <MailPlus className='h-16 w-16 opacity-60' />
         </CardContent>
         <CardFooter className='group-hover:text-background'>
-          <p>Ajukan Baru</p>
+          {description && <p>{description}</p>}
         </CardFooter>
       </Card>
     </Link>

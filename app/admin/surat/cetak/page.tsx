@@ -4,45 +4,43 @@ export default function Page() {
   return (
     <div className='w-full min-h-full flex flex-col gap-y-4'>
       <div className='flex justify-between'>
-        <h1 className='text-xl md:text-2xl font-semibold'>
-          Ajukan Permohonan Surat Baru
-        </h1>
+        <h1 className='text-xl md:text-2xl font-semibold'>Cetak Surat</h1>
       </div>
       <div className='rounded-sm grid grid-cols-3 gap-4'>
         <div className='grid gap-4'>
           <JenisSuratCard
-            path='/user/ajukan/sktm'
+            path='/admin/cetak/sktm'
             title='Surat Keterangan Tidak Mampu'
-            description='Ajukan Surat'
+            description='Cetak Surat'
           />
           <JenisSuratCard
-            path='/user/ajukan/skbn'
+            path='/admin/cetak/skbn'
             title='Surat Keterangan Beda Nama'
-            description='Ajukan Surat'
+            description='Cetak Surat'
           />
         </div>
         <div className='grid gap-4'>
           <JenisSuratCard
-            path='/user/ajukan/skklhr'
+            path='/admin/cetak/skklhr'
             title='Surat Keterangan Kelahiran'
-            description='Ajukan Surat'
+            description='Cetak Surat'
           />
           <JenisSuratCard
-            path='/user/ajukan/skkmtn'
+            path='/admin/cetak/skkmtn'
             title='Surat Keterangan Kematian'
-            description='Ajukan Surat'
+            description='Cetak Surat'
           />
         </div>
         <div className='grid gap-4'>
           <JenisSuratCard
-            path='/user/ajukan/sku'
+            path='/admin/cetak/sku'
             title='Surat Keterangan Usaha'
-            description='Ajukan Surat'
+            description='Cetak Surat'
           />
           <JenisSuratCard
-            path='/user/ajukan/sik'
+            path='/admin/cetak/sik'
             title='Surat Izin Keramaian'
-            description='Ajukan Surat'
+            description='Cetak Surat'
           />
         </div>
       </div>
