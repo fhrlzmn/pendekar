@@ -143,3 +143,18 @@ export const skuSchema = z.object({
     .min(1, 'Nama usaha harus diisi')
     .max(255, 'Nama usaha harus kurang dari 255 karakter'),
 });
+
+export const sikSchema = z.object({
+  jenisKeramaian: z
+    .string()
+    .min(1, 'Jenis keramaian harus diisi')
+    .max(255, 'Jenis keramaian harus kurang dari 255 karakter'),
+  tanggalMulaiKeramaian: z.string().date('Tanggal mulai keramaian harus diisi'),
+  tanggalSelesaiKeramaian: z
+    .string()
+    .date('Tanggal selesai keramaian harus diisi'),
+  keperluan: z
+    .string()
+    .min(1, 'Keperluan harus diisi')
+    .max(255, 'Keperluan harus kurang dari 255 karakter'),
+});

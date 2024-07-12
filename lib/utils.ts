@@ -71,3 +71,10 @@ export function getUmur(tanggalLahir: Date): number {
   const timeDiff = Math.abs(Date.now() - tanggalLahir.getTime());
   return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
 }
+
+export function isDateBeforeToday(date: Date): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date < today;
+}

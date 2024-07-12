@@ -4,6 +4,7 @@ import { Penduduk, Prisma, StatusPermohonan } from '@prisma/client';
 import { z } from 'zod';
 
 import {
+  sikSchema,
   skbnSchema,
   skklhrSchema,
   skkmtnSchema,
@@ -12,7 +13,7 @@ import {
 } from '@/schema/pengajuan';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { getUmur } from '@/lib/utils';
+import { getUmur, isDateBeforeToday } from '@/lib/utils';
 
 export async function ajukanSktm(
   values: z.infer<typeof sktmSchema>,
@@ -187,6 +188,64 @@ export async function ajukanSku(
         nikPemohon: penduduk.nik,
         data,
         kodeJenisSurat: 'SKU',
+      },
+    });
+
+    revalidatePath('/user/permohonan', 'page');
+    return { success: 'Pengajuan berhasil dikirim' };
+  } catch (error) {
+    return { error: 'Gagal mengajukan surat' };
+  }
+}
+
+export async function ajukanSik(
+  values: z.infer<typeof sikSchema>,
+  penduduk: Penduduk
+) {
+  const validatedFields = sikSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: 'Data tidak valid' };
+  }
+
+  if (isDateBeforeToday(new Date(validatedFields.data.tanggalMulaiKeramaian))) {
+    return {
+      error: 'Tanggal mulai keramaian tidak boleh kurang dari hari ini',
+    };
+  }
+
+  if (
+    new Date(validatedFields.data.tanggalSelesaiKeramaian) <
+    new Date(validatedFields.data.tanggalMulaiKeramaian)
+  ) {
+    return {
+      error: 'Tanggal selesai keramaian tidak boleh kurang dari tanggal mulai',
+    };
+  }
+
+  const data = {
+    nama: penduduk.nama,
+    nik: penduduk.nik,
+    noKk: penduduk.noKK,
+    ttl: `${penduduk.tempatLahir}, ${penduduk.tanggalLahir}`,
+    jenisKelamin: penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
+    alamat: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
+    agama: penduduk.agama,
+    status: penduduk.statusPerkawinan,
+    pendidikan: penduduk.pendidikanTerakhir,
+    pekerjaan: penduduk.pekerjaan,
+    kewarganegaraan: penduduk.kewarganegaraan,
+    ...validatedFields.data,
+  } as Prisma.JsonObject;
+
+  try {
+    await prisma.permohonanSurat.create({
+      data: {
+        status: StatusPermohonan.Dikirim,
+        keterangan: 'Pengajuan sudah dikirim',
+        nikPemohon: penduduk.nik,
+        data,
+        kodeJenisSurat: 'SIK',
       },
     });
 
