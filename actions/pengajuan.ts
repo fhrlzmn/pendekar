@@ -26,7 +26,15 @@ export async function ajukanSktm(
   }
 
   const data = {
-    keperluan: validatedFields.data.keperluan,
+    nama: penduduk.nama,
+    nik: penduduk.nik,
+    ttl: `${penduduk.tempatLahir}, ${penduduk.tanggalLahir}`,
+    jenisKelamin: penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
+    kewarganegaraan: penduduk.kewarganegaraan,
+    agama: penduduk.agama,
+    pekerjaan: penduduk.pekerjaan,
+    alamat: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
+    ...validatedFields.data,
   } as Prisma.JsonObject;
 
   try {
@@ -61,7 +69,17 @@ export async function ajukanSkbn(
     validatedFields.data.keterangan = '-';
   }
 
-  const data = validatedFields.data as Prisma.JsonObject;
+  const data = {
+    namaDalamKk: penduduk.nama,
+    nikDalamKk: penduduk.nik,
+    agamaDalamKk: penduduk.agama,
+    jenisKelaminDalamKk:
+      penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
+    pekerjaanDalamKk: penduduk.pekerjaan,
+    alamatDalamKk: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
+
+    ...validatedFields.data,
+  } as Prisma.JsonObject;
 
   try {
     await prisma.permohonanSurat.create({
