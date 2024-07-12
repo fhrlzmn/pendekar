@@ -3,7 +3,7 @@
 import { Penduduk, Prisma, StatusPermohonan } from '@prisma/client';
 import { z } from 'zod';
 
-import { skbnSchema, sktmSchema } from '@/schema/pengajuan';
+import { skbnSchema, skklhrSchema, sktmSchema } from '@/schema/pengajuan';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
@@ -67,9 +67,44 @@ export async function ajukanSkbn(
     });
 
     revalidatePath('/user/permohonan', 'page');
+    return { success: 'Pengajuan berhasil dikirim' };
   } catch (error) {
     return { error: 'Gagal mengajukan surat' };
   }
+}
 
-  return { success: 'Pengajuan berhasil dikirim' };
+export async function ajukanSkklhr(
+  values: z.infer<typeof skklhrSchema>,
+  penduduk: Penduduk
+) {
+  const validatedFields = skklhrSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: 'Data tidak valid' };
+  }
+
+  const data = {
+    ...validatedFields.data,
+    namaPelapor: penduduk.nama,
+    nikPelapor: penduduk.nik,
+    pekerjaanPelapor: penduduk.pekerjaan,
+    alamatPelapor: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
+  } as Prisma.JsonObject;
+
+  try {
+    await prisma.permohonanSurat.create({
+      data: {
+        status: StatusPermohonan.Dikirim,
+        keterangan: 'Pengajuan sudah dikirim',
+        nikPemohon: penduduk.nik,
+        data,
+        kodeJenisSurat: 'SKKLHR',
+      },
+    });
+
+    revalidatePath('/user/permohonan', 'page');
+    return { success: 'Pengajuan berhasil dikirim' };
+  } catch (error) {
+    return { error: 'Gagal mengajukan surat' };
+  }
 }

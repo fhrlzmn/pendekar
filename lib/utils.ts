@@ -66,3 +66,8 @@ export async function generateAdminPassword(): Promise<AdminPassword> {
 
   return { password, hashedPassword };
 }
+
+export function getUmur(tanggalLahir: Date): number {
+  const timeDiff = Math.abs(Date.now() - tanggalLahir.getTime());
+  return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
+}

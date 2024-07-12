@@ -21,11 +21,11 @@ export default function Page() {
         </div>
         <div className='grid gap-4'>
           <JenisSuratCard
-            path='/user/ajukan/skklh'
+            path='/user/ajukan/skklhr'
             title='Surat Keterangan Kelahiran'
           />
           <JenisSuratCard
-            path='/user/ajukan/skkmt'
+            path='/user/ajukan/skkmtn'
             title='Surat Keterangan Kematian'
           />
         </div>
