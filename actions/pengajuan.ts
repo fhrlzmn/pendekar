@@ -94,6 +94,7 @@ export async function ajukanSkklhr(
     namaPelapor: penduduk.nama,
     nikPelapor: penduduk.nik,
     pekerjaanPelapor: penduduk.pekerjaan,
+    umurPelapor: String(getUmur(penduduk.tanggalLahir)),
     alamatPelapor: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
   } as Prisma.JsonObject;
 
