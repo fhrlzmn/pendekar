@@ -53,6 +53,7 @@ model AparatDesa {
 
   penduduk Penduduk @relation(fields: [nik], references: [nik], onUpdate: Cascade, onDelete: Cascade)
   admin    Admin?
+  Surat    Surat[]
 
   @@map("aparat_desa")
 }
@@ -119,14 +120,15 @@ model Surat {
   nikPemohon       String   @map("nik_pemohon") @db.VarChar(16)
   data             Json?    @map("data")
   keterangan       String?  @db.Text()
-  tanggalPengajuan DateTime @default(now()) @map("tanggal_pengajuan") @db.Time()
-  berlakuHingga    DateTime @map("berlaku_hingga") @db.Date
+  tanggalPengajuan DateTime @default(now()) @map("tanggal_pengajuan") @db.Date
+  aparatDesaId     Int      @map("aparat_desa_id")
   permohonanId     Int?     @unique @map("permohonan_id")
   kodeJenisSurat   String   @map("kode_jenis_surat")
 
   penduduk   Penduduk         @relation(fields: [nikPemohon], references: [nik], onUpdate: Cascade, onDelete: Cascade)
   permohonan PermohonanSurat? @relation(fields: [permohonanId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   jenisSurat JenisSurat       @relation(fields: [kodeJenisSurat], references: [kode], onUpdate: Cascade, onDelete: Cascade)
+  aparatDesa AparatDesa       @relation(fields: [aparatDesaId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   @@map("surat")
 }
