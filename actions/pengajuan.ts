@@ -247,7 +247,9 @@ export async function ajukanSku(
     nama: penduduk.nama,
     nik: penduduk.nik,
     noKk: penduduk.noKK,
-    ttl: `${penduduk.tempatLahir}, ${penduduk.tanggalLahir}`,
+    ttl: `${penduduk.tempatLahir}, ${formatDate(
+      new Date(penduduk.tanggalLahir)
+    )}`,
     jenisKelamin: penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
     alamat: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
     agama: penduduk.agama,
@@ -255,7 +257,12 @@ export async function ajukanSku(
     pendidikan: penduduk.pendidikanTerakhir,
     pekerjaan: penduduk.pekerjaan,
     kewarganegaraan: penduduk.kewarganegaraan,
-    ...validatedFields.data,
+    namaPemohon: penduduk.nama,
+    keperluan: validatedFields.data.keperluan,
+    namaUsaha: validatedFields.data.namaUsaha,
+    berlakuHingga: formatDate(
+      new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+    ),
   } as Prisma.JsonObject;
 
   try {
