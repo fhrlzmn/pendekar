@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 
 import { formatDate } from '@/lib/utils';
 import { SuratWithRelations } from '@/types/surat';
+import DownloadButton from '@/components/cetak-surat/download-button';
 
 export const columns: ColumnDef<SuratWithRelations>[] = [
   {
@@ -35,10 +36,7 @@ export const columns: ColumnDef<SuratWithRelations>[] = [
 
       return (
         <div className='flex gap-1'>
-          <Button onClick={() => console.log(surat)}>
-            <Printer className='h-4 w-4 mr-2' />
-            Cetak
-          </Button>
+          <DownloadButton surat={surat} />
         </div>
       );
     },
