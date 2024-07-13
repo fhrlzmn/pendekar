@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
 import { ChevronLeft, RefreshCw } from 'lucide-react';
 import { AparatDesa, Prisma } from '@prisma/client';
 
@@ -14,29 +15,13 @@ import {
   CardContent,
 } from '@/components/ui/card';
 import InputDisabled from '@/components/input-disabled';
+import { Form } from '@/components/ui/form';
+import TextareaDisabled from '@/components/textarea-disabled';
 
 import { formatDate } from '@/lib/utils';
 import { cetakSuratSchema } from '@/schema/cetakSurat';
-import { z } from 'zod';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '../ui/form';
-import TextareaDisabled from '../textarea-disabled';
 import { PermohonanSuratWithPenduduk } from '@/types/permohonan';
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from '@/components/ui/select';
-import FormFieldInput from '../form-field/input';
+import FormFieldCetakSurat from './form-field-cetak-surat';
 
 interface CetakSKTMProps {
   form: UseFormReturn<z.infer<typeof cetakSuratSchema>>;
@@ -69,7 +54,7 @@ export default function CetakSKTM({
       >
         <div className='flex items-center gap-4'>
           <Link
-            href='/user/ajukan'
+            href='/admin/permohonan'
             className={buttonVariants({ variant: 'outline', size: 'icon' })}
           >
             <ChevronLeft className='h-4 w-4' />
@@ -92,44 +77,9 @@ export default function CetakSKTM({
             </CardDescription>
           </CardHeader>
           <CardContent className='grid md:grid-cols-2 gap-4'>
-            <FormField
-              control={form.control}
-              name='idPenandatangan'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ditandatangani oleh</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Pilih' />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {aparatDesaSelect.map((aparat) => (
-                        <SelectItem
-                          key={aparat.value}
-                          value={aparat.value.toString()}
-                        >
-                          {aparat.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>Surat ditandatangani oleh</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormFieldInput<typeof cetakSuratSchema>
+            <FormFieldCetakSurat
               form={form}
-              name='nomorSurat'
-              label='Nomor Surat'
-              placeholder='Nomor Surat'
-              maxLength={32}
-              description='Nomor surat yang akan digunakan'
+              aparatDesaSelect={aparatDesaSelect}
             />
           </CardContent>
         </Card>
