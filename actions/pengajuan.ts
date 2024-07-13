@@ -312,7 +312,9 @@ export async function ajukanSik(
     nama: penduduk.nama,
     nik: penduduk.nik,
     noKk: penduduk.noKK,
-    ttl: `${penduduk.tempatLahir}, ${penduduk.tanggalLahir}`,
+    ttl: `${penduduk.tempatLahir}, ${formatDate(
+      new Date(penduduk.tanggalLahir)
+    )}`,
     jenisKelamin: penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
     alamat: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
     agama: penduduk.agama,
@@ -320,7 +322,14 @@ export async function ajukanSik(
     pendidikan: penduduk.pendidikanTerakhir,
     pekerjaan: penduduk.pekerjaan,
     kewarganegaraan: penduduk.kewarganegaraan,
-    ...validatedFields.data,
+    jenisKeramaian: validatedFields.data.jenisKeramaian,
+    tanggalMulaiKeramaian: formatDate(
+      new Date(validatedFields.data.tanggalMulaiKeramaian)
+    ),
+    tanggalSelesaiKeramaian: formatDate(
+      new Date(validatedFields.data.tanggalSelesaiKeramaian)
+    ),
+    keperluan: validatedFields.data.keperluan,
   } as Prisma.JsonObject;
 
   try {
