@@ -16,6 +16,7 @@ import { cetakSurat } from '@/actions/cetak-surat';
 import CetakSKBN from '@/components/cetak-surat/cetak-skbn';
 import CetakSKKLHR from '@/components/cetak-surat/cetak-skklhr';
 import CetakSKKMTN from '@/components/cetak-surat/cetak-skkmtn';
+import CetakSKU from '@/components/cetak-surat/cetak-sku';
 
 export default function CetakForm({
   permohonan,
@@ -97,7 +98,15 @@ export default function CetakForm({
           aparatDesa={aparatDesa}
         />
       )}
-      {permohonan.kodeJenisSurat === 'SKU' && <h1>SKU</h1>}
+      {permohonan.kodeJenisSurat === 'SKU' && (
+        <CetakSKU
+          form={form}
+          onSubmit={onSubmit}
+          isPending={isPending}
+          permohonan={permohonan}
+          aparatDesa={aparatDesa}
+        />
+      )}
       {permohonan.kodeJenisSurat === 'SIK' && <h1>SIK</h1>}
     </>
   );
