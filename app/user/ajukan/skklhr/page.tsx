@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import AjukanSKBNForm from './form';
+import AjukanSKKLHRForm from './form';
 
 export default async function Page() {
   const session = await auth();
@@ -16,5 +16,5 @@ export default async function Page() {
     notFound();
   }
 
-  return <AjukanSKBNForm penduduk={penduduk} />;
+  return <AjukanSKKLHRForm penduduk={penduduk} />;
 }

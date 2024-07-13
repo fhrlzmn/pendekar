@@ -47,6 +47,12 @@ export function formatDateToInputDate(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
+export function getHari(date: Date): string {
+  const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+  return days[date.getDay()];
+}
+
 type UserPin = {
   pin: number;
   hashedPin: string;
@@ -87,4 +93,11 @@ export function isDateBeforeToday(date: Date): boolean {
   today.setHours(0, 0, 0, 0);
 
   return date < today;
+}
+
+export function isDateAfterToday(date: Date): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date > today;
 }

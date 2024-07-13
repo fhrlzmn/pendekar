@@ -13,7 +13,13 @@ import {
 } from '@/schema/pengajuan';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { formatDate, getUmur, isDateBeforeToday } from '@/lib/utils';
+import {
+  formatDate,
+  getHari,
+  getUmur,
+  isDateAfterToday,
+  isDateBeforeToday,
+} from '@/lib/utils';
 
 export async function ajukanSktm(
   values: z.infer<typeof sktmSchema>,
@@ -124,13 +130,36 @@ export async function ajukanSkklhr(
     return { error: 'Data tidak valid' };
   }
 
+  if (isDateAfterToday(new Date(validatedFields.data.tanggalLahirAnak))) {
+    return { error: 'Tanggal lahir anak tidak boleh lebih dari hari ini' };
+  }
+
   const data = {
-    ...validatedFields.data,
+    hariLahirAnak: getHari(new Date(validatedFields.data.tanggalLahirAnak)),
+    tanggalLahirAnak: formatDate(
+      new Date(validatedFields.data.tanggalLahirAnak)
+    ),
+    waktuLahirAnak: validatedFields.data.pukulLahirAnak,
+    tempatLahirAnak: validatedFields.data.tempatLahirAnak,
+    jenisKelaminAnak:
+      validatedFields.data.jenisKelaminAnak === 'L' ? 'Laki-laki' : 'Perempuan',
+    namaAnak: validatedFields.data.namaAnak,
+    namaIbu: validatedFields.data.namaIbu,
+    nikIbu: validatedFields.data.nikIbu,
+    umurIbu: validatedFields.data.umurIbu,
+    pekerjaanIbu: validatedFields.data.pekerjaanIbu,
+    alamatIbu: validatedFields.data.alamatIbu,
+    namaAyah: validatedFields.data.namaAyah,
+    nikAyah: validatedFields.data.nikAyah,
+    umurAyah: validatedFields.data.umurAyah,
+    pekerjaanAyah: validatedFields.data.pekerjaanAyah,
+    alamatAyah: validatedFields.data.alamatAyah,
     namaPelapor: penduduk.nama,
     nikPelapor: penduduk.nik,
     pekerjaanPelapor: penduduk.pekerjaan,
     umurPelapor: String(getUmur(penduduk.tanggalLahir)),
     alamatPelapor: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
+    hubunganPelapor: validatedFields.data.hubunganPelapor,
   } as Prisma.JsonObject;
 
   try {

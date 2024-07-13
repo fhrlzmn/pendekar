@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { ajukanSkklhr } from '@/actions/pengajuan';
 import SKKLHRForm from '@/components/pengajuan/skklhr-form';
 
-export default function AjukanSKBNForm({ penduduk }: { penduduk: Penduduk }) {
+export default function AjukanSKKLHRForm({ penduduk }: { penduduk: Penduduk }) {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const router = useRouter();
