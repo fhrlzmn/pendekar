@@ -34,7 +34,7 @@ export async function ajukanSktm(
     agama: penduduk.agama,
     pekerjaan: penduduk.pekerjaan,
     alamat: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
-    ...validatedFields.data,
+    keperluan: validatedFields.data.keperluan,
   } as Prisma.JsonObject;
 
   try {
