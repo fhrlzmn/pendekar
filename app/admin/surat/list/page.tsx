@@ -12,7 +12,7 @@ export default async function Page() {
       aparatDesa: true,
     },
     orderBy: {
-      tanggalPengajuan: 'desc',
+      id: 'desc',
     },
   });
 

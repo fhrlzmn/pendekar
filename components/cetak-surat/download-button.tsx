@@ -43,7 +43,7 @@ export default function DownloadButton({
   }
 
   return (
-    <Button onClick={postData} disabled={isPending}>
+    <Button onClick={postData} disabled={isPending} size='sm'>
       {isPending ? (
         <RefreshCw className='mr-2 h-4 w-4 animate-spin' />
       ) : (
