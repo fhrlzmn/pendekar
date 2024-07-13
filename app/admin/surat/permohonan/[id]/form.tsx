@@ -15,6 +15,7 @@ import { PermohonanSuratWithPenduduk } from '@/types/permohonan';
 import { cetakSurat } from '@/actions/cetak-surat';
 import CetakSKBN from '@/components/cetak-surat/cetak-skbn';
 import CetakSKKLHR from '@/components/cetak-surat/cetak-skklhr';
+import CetakSKKMTN from '@/components/cetak-surat/cetak-skkmtn';
 
 export default function CetakForm({
   permohonan,
@@ -87,7 +88,15 @@ export default function CetakForm({
           aparatDesa={aparatDesa}
         />
       )}
-      {permohonan.kodeJenisSurat === 'SKKMTN' && <h1>SKKMTN</h1>}
+      {permohonan.kodeJenisSurat === 'SKKMTN' && (
+        <CetakSKKMTN
+          form={form}
+          onSubmit={onSubmit}
+          isPending={isPending}
+          permohonan={permohonan}
+          aparatDesa={aparatDesa}
+        />
+      )}
       {permohonan.kodeJenisSurat === 'SKU' && <h1>SKU</h1>}
       {permohonan.kodeJenisSurat === 'SIK' && <h1>SIK</h1>}
     </>
