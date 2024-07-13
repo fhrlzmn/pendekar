@@ -191,12 +191,28 @@ export async function ajukanSkkmtn(
   }
 
   const data = {
-    ...validatedFields.data,
+    nama: validatedFields.data.nama,
+    nik: validatedFields.data.nik,
+    jenisKelamin:
+      validatedFields.data.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
+    ttl: `${validatedFields.data.tempatLahir}, ${formatDate(
+      new Date(validatedFields.data.tanggalLahir)
+    )}`,
+    agama: validatedFields.data.agama,
+    alamat: validatedFields.data.alamat,
+    hariMeninggal: getHari(new Date(validatedFields.data.tanggalMeninggal)),
+    tanggalMeninggal: formatDate(
+      new Date(validatedFields.data.tanggalMeninggal)
+    ),
+    waktuMeninggal: validatedFields.data.pukulMeninggal,
+    tempatMeninggal: validatedFields.data.tempatMeninggal,
+    sebabMeninggal: validatedFields.data.sebabMeninggal,
     namaPelapor: penduduk.nama,
     nikPelapor: penduduk.nik,
-    pekerjaanPelapor: penduduk.pekerjaan,
     umurPelapor: String(getUmur(penduduk.tanggalLahir)),
+    pekerjaanPelapor: penduduk.pekerjaan,
     alamatPelapor: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
+    hubunganPelapor: validatedFields.data.hubunganPelapor,
   } as Prisma.JsonObject;
 
   try {
