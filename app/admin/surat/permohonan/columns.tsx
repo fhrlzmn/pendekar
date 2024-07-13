@@ -69,12 +69,11 @@ export const columns: ColumnDef<PermohonanSuratColumn>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const permohonanSurat = row.original;
-      const kodeJenisSurat = permohonanSurat.kodeJenisSurat.toLowerCase();
 
       return (
         <div className='flex gap-1'>
           <Link
-            href={`/admin/surat/permohonan/${kodeJenisSurat}/${permohonanSurat.id}`}
+            href={`/admin/surat/permohonan/${permohonanSurat.id}`}
             className={buttonVariants({ variant: 'default', size: 'icon' })}
           >
             <Info className='h-4 w-4' />
