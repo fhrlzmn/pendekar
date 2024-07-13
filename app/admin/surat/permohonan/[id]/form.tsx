@@ -13,6 +13,7 @@ import { cetakSuratSchema } from '@/schema/cetakSurat';
 import CetakSKTM from '@/components/cetak-surat/cetak-sktm';
 import { PermohonanSuratWithPenduduk } from '@/types/permohonan';
 import { cetakSurat } from '@/actions/cetak-surat';
+import CetakSKBN from '@/components/cetak-surat/cetak-skbn';
 
 export default function CetakForm({
   permohonan,
@@ -50,7 +51,7 @@ export default function CetakForm({
             title: 'Berhasil',
             description: data.success,
           });
-          router.push('/admin/permohonan');
+          router.push('/admin/surat/permohonan');
         }
       });
     });
@@ -67,7 +68,15 @@ export default function CetakForm({
           aparatDesa={aparatDesa}
         />
       )}
-      {permohonan.kodeJenisSurat === 'SKBN' && <h1>SKBN</h1>}
+      {permohonan.kodeJenisSurat === 'SKBN' && (
+        <CetakSKBN
+          form={form}
+          onSubmit={onSubmit}
+          isPending={isPending}
+          permohonan={permohonan}
+          aparatDesa={aparatDesa}
+        />
+      )}
       {permohonan.kodeJenisSurat === 'SKKLHR' && <h1>SKKLHR</h1>}
       {permohonan.kodeJenisSurat === 'SKKMTN' && <h1>SKKMTN</h1>}
       {permohonan.kodeJenisSurat === 'SKU' && <h1>SKU</h1>}

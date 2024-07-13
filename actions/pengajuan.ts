@@ -82,6 +82,7 @@ export async function ajukanSkbn(
     pekerjaanDalamKk: penduduk.pekerjaan,
     alamatDalamKk: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
 
+    kartuIdentiasLain: validatedFields.data.kartuIdentitasLain,
     noIdentitas: validatedFields.data.noIdentitas,
     nama: validatedFields.data.nama,
     ttl: `${validatedFields.data.tempatLahir}, ${formatDate(

@@ -19,6 +19,9 @@ export default async function Page() {
     include: {
       jenisSurat: true,
     },
+    orderBy: {
+      id: 'desc',
+    },
   });
 
   return (
@@ -26,7 +29,7 @@ export default async function Page() {
       <div className='flex justify-between'>
         <h1 className='text-xl md:text-2xl font-semibold'>Permohonan Saya</h1>
         <Link
-          href='/permohonan/new'
+          href='/user/ajukan'
           className={buttonVariants({ variant: 'default' })}
         >
           Ajukan Permohonan
