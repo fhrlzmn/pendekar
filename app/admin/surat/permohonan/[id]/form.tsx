@@ -50,7 +50,7 @@ export default function CetakForm({
             title: 'Berhasil',
             description: data.success,
           });
-          // router.push('/user/permohonan');
+          router.push('/admin/permohonan');
         }
       });
     });
