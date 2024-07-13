@@ -13,7 +13,7 @@ import {
 } from '@/schema/pengajuan';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { getUmur, isDateBeforeToday } from '@/lib/utils';
+import { formatDate, getUmur, isDateBeforeToday } from '@/lib/utils';
 
 export async function ajukanSktm(
   values: z.infer<typeof sktmSchema>,
@@ -28,7 +28,9 @@ export async function ajukanSktm(
   const data = {
     nama: penduduk.nama,
     nik: penduduk.nik,
-    ttl: `${penduduk.tempatLahir}, ${penduduk.tanggalLahir}`,
+    ttl: `${penduduk.tempatLahir}, ${formatDate(
+      new Date(penduduk.tanggalLahir)
+    )}`,
     jenisKelamin: penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
     kewarganegaraan: penduduk.kewarganegaraan,
     agama: penduduk.agama,
@@ -71,14 +73,26 @@ export async function ajukanSkbn(
 
   const data = {
     namaDalamKk: penduduk.nama,
-    nikDalamKk: penduduk.nik,
+    ttlDalamKk: `${penduduk.tempatLahir}, ${formatDate(
+      new Date(penduduk.tanggalLahir)
+    )}`,
     agamaDalamKk: penduduk.agama,
     jenisKelaminDalamKk:
       penduduk.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
     pekerjaanDalamKk: penduduk.pekerjaan,
     alamatDalamKk: `${penduduk.alamat} RT ${penduduk.rt} RW ${penduduk.rw} Desa ${penduduk.desa} Kec. ${penduduk.kecamatan} ${penduduk.kotaKabupaten} ${penduduk.provinsi}`,
 
-    ...validatedFields.data,
+    noIdentitas: validatedFields.data.noIdentitas,
+    nama: validatedFields.data.nama,
+    ttl: `${validatedFields.data.tempatLahir}, ${formatDate(
+      new Date(validatedFields.data.tanggalLahir)
+    )}`,
+    jenisKelamin:
+      validatedFields.data.jenisKelamin === 'L' ? 'Laki-laki' : 'Perempuan',
+    alamat: validatedFields.data.alamat,
+    agama: validatedFields.data.agama,
+    pekerjaan: validatedFields.data.pekerjaan,
+    keterangan: validatedFields.data.keterangan,
   } as Prisma.JsonObject;
 
   try {
