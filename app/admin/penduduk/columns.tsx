@@ -59,9 +59,9 @@ export const columns: ColumnDef<Penduduk>[] = [
         <div className='flex gap-1'>
           <Link
             href={`/admin/penduduk/${penduduk.nik}/edit`}
-            className={buttonVariants({ variant: 'outline', size: 'icon' })}
+            className={buttonVariants({ variant: 'outline', size: 'sm' })}
           >
-            <Pencil className='h-4 w-4' />
+            <Pencil className='h-3 w-3' />
           </Link>
           <DeletePenduduk nik={penduduk.nik} />
         </div>

@@ -25,7 +25,7 @@ export default async function Page() {
         </Link>
       </div>
       <div className='rounded-sm'>
-        <DataTable columns={columns} data={users} />
+        <DataTable columns={columns} data={users} filterBy='nama' />
       </div>
     </div>
   );

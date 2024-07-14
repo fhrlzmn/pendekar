@@ -33,7 +33,7 @@ export default async function Page() {
         </Link>
       </div>
       <div className='rounded-sm'>
-        <DataTable columns={columns} data={admins} />
+        <DataTable columns={columns} data={admins} filterBy='nama' />
       </div>
     </div>
   );

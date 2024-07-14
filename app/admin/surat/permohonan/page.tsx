@@ -23,7 +23,11 @@ export default async function Page() {
         </h1>
       </div>
       <div className='rounded-sm'>
-        <DataTable columns={columns} data={permohonanSurat} />
+        <DataTable
+          columns={columns}
+          data={permohonanSurat}
+          filterBy='namaPemohon'
+        />
       </div>
     </div>
   );

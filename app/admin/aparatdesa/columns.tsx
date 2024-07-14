@@ -57,9 +57,9 @@ export const columns: ColumnDef<AparatDesa>[] = [
         <div className='flex gap-1'>
           <Link
             href={`/admin/aparatdesa/${aparat.id}/edit`}
-            className={buttonVariants({ variant: 'outline', size: 'icon' })}
+            className={buttonVariants({ variant: 'outline', size: 'sm' })}
           >
-            <Pencil className='h-4 w-4' />
+            <Pencil className='h-3 w-3' />
           </Link>
           <DeleteAparatDesa id={aparat.id.toString()} />
         </div>

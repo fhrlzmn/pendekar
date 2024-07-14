@@ -57,9 +57,9 @@ export default function ResetAdminAccount({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild disabled={isPending}>
-        <Button type='button' variant='default' size='icon'>
+        <Button type='button' variant='default' size='sm'>
           {isPending ? (
-            <RefreshCw className='mr-2 h-4 w-4 animate-spin' />
+            <RefreshCw className='h-4 w-4 animate-spin' />
           ) : (
             <RefreshCcw className='h-4 w-4' />
           )}

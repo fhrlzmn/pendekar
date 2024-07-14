@@ -55,11 +55,11 @@ export default function DeleteAparatDesa({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild disabled={isPending}>
-        <Button type='button' variant='destructive' size='icon'>
+        <Button type='button' variant='destructive' size='sm'>
           {isPending ? (
-            <RefreshCw className='mr-2 h-4 w-4 animate-spin' />
+            <RefreshCw className='h-3 w-3 animate-spin' />
           ) : (
-            <Trash className='h-4 w-4' />
+            <Trash className='h-3 w-3' />
           )}
         </Button>
       </AlertDialogTrigger>

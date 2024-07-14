@@ -74,7 +74,7 @@ export const columns: ColumnDef<PermohonanSuratColumn>[] = [
         <div className='flex gap-1'>
           <Link
             href={`/admin/surat/permohonan/${permohonanSurat.id}`}
-            className={buttonVariants({ variant: 'default', size: 'icon' })}
+            className={buttonVariants({ variant: 'default', size: 'sm' })}
           >
             <Info className='h-4 w-4' />
           </Link>

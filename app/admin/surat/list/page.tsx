@@ -22,7 +22,7 @@ export default async function Page() {
         <h1 className='text-xl md:text-2xl font-semibold'>Daftar Surat</h1>
       </div>
       <div className='rounded-sm'>
-        <DataTable columns={columns} data={surat} />
+        <DataTable columns={columns} data={surat} filterBy='nomorSurat' />
       </div>
     </div>
   );
