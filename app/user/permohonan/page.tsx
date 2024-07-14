@@ -36,7 +36,11 @@ export default async function Page() {
         </Link>
       </div>
       <div className='rounded-sm'>
-        <DataTable columns={columns} data={permohonanSuratWithJenisSurat} />
+        <DataTable
+          columns={columns}
+          data={permohonanSuratWithJenisSurat}
+          filterBy='jenisSurat'
+        />
       </div>
     </div>
   );

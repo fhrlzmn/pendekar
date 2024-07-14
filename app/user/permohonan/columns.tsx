@@ -13,7 +13,7 @@ export interface PermohonanSuratWithJenisSurat extends PermohonanSurat {
 
 export const columns: ColumnDef<PermohonanSuratWithJenisSurat>[] = [
   {
-    accessorKey: 'kodeJenisSurat',
+    accessorKey: 'jenisSurat',
     header: 'Jenis Surat',
     accessorFn: (permohonan) => permohonan.jenisSurat.nama,
   },
