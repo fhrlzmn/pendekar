@@ -120,3 +120,25 @@ export async function fetchUserCardData(nik: string) {
     throw new Error('Database error');
   }
 }
+
+export async function fetchUserPermohonan(nik: string) {
+  try {
+    const recentPermohonan = await prisma.permohonanSurat.findMany({
+      where: {
+        nikPemohon: nik,
+      },
+      take: 7,
+      orderBy: {
+        id: 'desc',
+      },
+      include: {
+        jenisSurat: true,
+      },
+    });
+
+    return recentPermohonan;
+  } catch (error) {
+    console.error('Database error: ', error);
+    throw new Error('Database error');
+  }
+}

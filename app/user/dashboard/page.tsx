@@ -1,7 +1,6 @@
 import { auth } from '@/auth';
 import { UserDashboardCards } from '@/components/dashboard/cards';
-import { RecentPendingPermohonan } from '@/components/dashboard/recent-permohonan';
-import RecentSurat from '@/components/dashboard/recent-surat';
+import { RecentUserPermohonan } from '@/components/dashboard/recent-permohonan';
 import {
   AdminDashboardCardsSkeleton,
   RecentTableSkeleton,
@@ -20,12 +19,9 @@ export default async function Page() {
           <UserDashboardCards nik={nik!} />
         </Suspense>
       </div>
-      <div className='grid gap-4 lg:grid-cols-[1fr_0.7fr]'>
+      <div className='grid gap-4'>
         <Suspense fallback={<RecentTableSkeleton />}>
-          <RecentPendingPermohonan />
-        </Suspense>
-        <Suspense fallback={<RecentTableSkeleton />}>
-          <RecentSurat />
+          <RecentUserPermohonan nik={nik!} />
         </Suspense>
       </div>
     </>
