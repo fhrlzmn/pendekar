@@ -49,15 +49,23 @@ export async function RecentPendingPermohonan() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {recentPermohonan.map((permohonan) => (
-              <TableRow key={permohonan.id}>
-                <TableCell>{permohonan.jenisSurat.nama}</TableCell>
-                <TableCell>{permohonan.penduduk.nama}</TableCell>
-                <TableCell className='text-right'>
-                  {formatDate(permohonan.tanggalPengajuan)}
+            {recentPermohonan.length > 0 ? (
+              recentPermohonan.map((permohonan) => (
+                <TableRow key={permohonan.id}>
+                  <TableCell>{permohonan.jenisSurat.nama}</TableCell>
+                  <TableCell>{permohonan.penduduk.nama}</TableCell>
+                  <TableCell className='text-right'>
+                    {formatDate(permohonan.tanggalPengajuan)}
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} className='h-24 text-center'>
+                  Tidak ada data.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </CardContent>
@@ -95,28 +103,36 @@ export async function RecentUserPermohonan({ nik }: { nik: string }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {recentPermohonan.map((permohonan) => (
-              <TableRow key={permohonan.id}>
-                <TableCell>{permohonan.jenisSurat.nama}</TableCell>
-                <TableCell className='hidden md:table-cell'>
-                  {permohonan.keterangan}
-                </TableCell>
-                <TableCell>
-                  {permohonan.status === 'Dikirim' && (
-                    <Badge variant='secondary'>{permohonan.status}</Badge>
-                  )}
-                  {permohonan.status === 'Ditolak' && (
-                    <Badge variant='destructive'>{permohonan.status}</Badge>
-                  )}
-                  {permohonan.status === 'Selesai' && (
-                    <Badge variant='default'>{permohonan.status}</Badge>
-                  )}
-                </TableCell>
-                <TableCell className='text-right'>
-                  {formatDate(permohonan.tanggalPengajuan)}
+            {recentPermohonan.length > 0 ? (
+              recentPermohonan.map((permohonan) => (
+                <TableRow key={permohonan.id}>
+                  <TableCell>{permohonan.jenisSurat.nama}</TableCell>
+                  <TableCell className='hidden md:table-cell'>
+                    {permohonan.keterangan}
+                  </TableCell>
+                  <TableCell>
+                    {permohonan.status === 'Dikirim' && (
+                      <Badge variant='secondary'>{permohonan.status}</Badge>
+                    )}
+                    {permohonan.status === 'Ditolak' && (
+                      <Badge variant='destructive'>{permohonan.status}</Badge>
+                    )}
+                    {permohonan.status === 'Selesai' && (
+                      <Badge variant='default'>{permohonan.status}</Badge>
+                    )}
+                  </TableCell>
+                  <TableCell className='text-right'>
+                    {formatDate(permohonan.tanggalPengajuan)}
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={4} className='h-24 text-center'>
+                  Tidak ada data.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </CardContent>

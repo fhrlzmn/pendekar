@@ -44,12 +44,20 @@ export default async function RecentSurat() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {recentSurat.map((surat) => (
-              <TableRow key={surat.id}>
-                <TableCell>{surat.jenisSurat.nama}</TableCell>
-                <TableCell className='text-right'>{surat.nomorSurat}</TableCell>
+            {recentSurat.length > 0 ? (
+              recentSurat.map((surat) => (
+                <TableRow key={surat.id}>
+                  <TableCell>{surat.jenisSurat.nama}</TableCell>
+                  <TableCell className='text-right'>
+                    {surat.nomorSurat}
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={2}>Tidak ada surat</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </CardContent>
