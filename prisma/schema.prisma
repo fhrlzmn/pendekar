@@ -3,41 +3,40 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-// Model
 model Penduduk {
-  nik                 String       @id @unique @db.VarChar(16)
-  noKK                String       @db.VarChar(16)
-  nama                String       @db.VarChar(255)
-  tempatLahir         String       @map("tempat_lahir") @db.VarChar(128)
-  tanggalLahir        DateTime     @map("tanggal_lahir") @db.Date()
-  jenisKelamin        JenisKelamin @map("jenis_kelamin")
-  agama               String       @db.VarChar(30)
-  alamat              String       @db.VarChar(128)
-  rt                  String       @db.VarChar(3)
-  rw                  String       @db.VarChar(3)
-  desa                String       @db.VarChar(128)
-  kecamatan           String       @db.VarChar(128)
-  kotaKabupaten       String       @map("kota_kabupaten") @db.VarChar(128)
-  provinsi            String       @db.VarChar(128)
-  pendidikanTerakhir  String       @map("pendidikan_terakhir") @db.VarChar(64)
-  pendidikanDitempuh  String?      @map("pendidikan_ditempuh") @db.VarChar(64)
-  pekerjaan           String       @db.VarChar(64)
-  statusPerkawinan    String       @map("status_perkawinan") @db.VarChar(30)
-  statusDalamKeluarga String       @map("status_dalam_keluarga") @db.VarChar(30)
-  kewarganegaraan     String       @db.VarChar(30)
-  namaAyah            String       @map("nama_ayah") @db.VarChar(255)
-  namaIbu             String       @map("nama_ibu") @db.VarChar(255)
-  dibuatPada          DateTime     @default(now()) @map("dibuat_pada")
-  diubahPada          DateTime     @updatedAt @map("diubah_pada")
-
-  aparatDesa      AparatDesa?
-  user            User?
-  permohonanSurat PermohonanSurat[]
-  surat           Surat[]
+  nik                 String            @id @unique @db.VarChar(16)
+  noKK                String            @db.VarChar(16)
+  nama                String            @db.VarChar(255)
+  tempatLahir         String            @map("tempat_lahir") @db.VarChar(128)
+  tanggalLahir        DateTime          @map("tanggal_lahir") @db.Date
+  jenisKelamin        JenisKelamin      @map("jenis_kelamin")
+  agama               String            @db.VarChar(30)
+  alamat              String            @db.VarChar(128)
+  rt                  String            @db.VarChar(3)
+  rw                  String            @db.VarChar(3)
+  desa                String            @db.VarChar(128)
+  kecamatan           String            @db.VarChar(128)
+  kotaKabupaten       String            @map("kota_kabupaten") @db.VarChar(128)
+  provinsi            String            @db.VarChar(128)
+  pendidikanTerakhir  String            @map("pendidikan_terakhir") @db.VarChar(64)
+  pendidikanDitempuh  String?           @map("pendidikan_ditempuh") @db.VarChar(64)
+  pekerjaan           String            @db.VarChar(64)
+  statusPerkawinan    String            @map("status_perkawinan") @db.VarChar(30)
+  statusDalamKeluarga String            @map("status_dalam_keluarga") @db.VarChar(30)
+  kewarganegaraan     String            @db.VarChar(30)
+  namaAyah            String            @map("nama_ayah") @db.VarChar(255)
+  namaIbu             String            @map("nama_ibu") @db.VarChar(255)
+  dibuatPada          DateTime          @default(now()) @map("dibuat_pada")
+  diubahPada          DateTime          @updatedAt @map("diubah_pada")
+  aparatDesa          AparatDesa?
+  permohonanSurat     PermohonanSurat[]
+  surat               Surat[]
+  user                User?
 
   @@map("penduduk")
 }
@@ -50,10 +49,9 @@ model AparatDesa {
   nip        String?  @unique @db.VarChar(18)
   dibuatPada DateTime @default(now()) @map("dibuat_pada")
   diubahPada DateTime @updatedAt @map("diubah_pada")
-
-  penduduk Penduduk @relation(fields: [nik], references: [nik], onUpdate: Cascade, onDelete: Cascade)
-  admin    Admin?
-  Surat    Surat[]
+  admin      Admin?
+  penduduk   Penduduk @relation(fields: [nik], references: [nik], onDelete: Cascade)
+  Surat      Surat[]
 
   @@map("aparat_desa")
 }
@@ -61,39 +59,36 @@ model AparatDesa {
 model User {
   id           Int      @id @default(autoincrement())
   nik          String   @unique @db.VarChar(16)
-  pin          String   @db.VarChar()
+  pin          String   @db.VarChar
   nama         String   @db.VarChar(255)
   dibuatPada   DateTime @default(now()) @map("dibuat_pada")
   diubahPada   DateTime @updatedAt @map("diubah_pada")
   pertamaLogin Boolean  @default(true) @map("pertama_login")
-
-  penduduk Penduduk @relation(fields: [nik], references: [nik], onUpdate: Cascade, onDelete: Cascade)
+  penduduk     Penduduk @relation(fields: [nik], references: [nik], onDelete: Cascade)
 
   @@map("user")
 }
 
 model Admin {
-  id           Int      @id @default(autoincrement())
-  username     String   @unique @db.VarChar(30)
-  password     String   @db.VarChar()
-  nama         String   @db.VarChar(255)
-  dibuatPada   DateTime @default(now()) @map("dibuat_pada")
-  diubahPada   DateTime @updatedAt @map("diubah_pada")
-  aparatDesaId Int?     @unique @map("aparat_desa_id")
-  pertamaLogin Boolean  @default(true) @map("pertama_login")
-
-  aparatDesa AparatDesa? @relation(fields: [aparatDesaId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  id           Int         @id @default(autoincrement())
+  username     String      @unique @db.VarChar(30)
+  password     String      @db.VarChar
+  nama         String      @db.VarChar(255)
+  dibuatPada   DateTime    @default(now()) @map("dibuat_pada")
+  diubahPada   DateTime    @updatedAt @map("diubah_pada")
+  aparatDesaId Int?        @unique @map("aparat_desa_id")
+  pertamaLogin Boolean     @default(true) @map("pertama_login")
+  aparatDesa   AparatDesa? @relation(fields: [aparatDesaId], references: [id], onDelete: Cascade)
 
   @@map("admin")
 }
 
 model JenisSurat {
-  id   Int    @id @default(autoincrement())
-  nama String @unique @db.VarChar(255)
-  kode String @unique @db.VarChar(10)
-
-  surat           Surat[]
+  id              Int               @id @default(autoincrement())
+  nama            String            @unique @db.VarChar(255)
+  kode            String            @unique @db.VarChar(10)
   permohonanSurat PermohonanSurat[]
+  surat           Surat[]
 
   @@map("jenis_surat")
 }
@@ -104,36 +99,33 @@ model PermohonanSurat {
   nikPemohon       String           @map("nik_pemohon") @db.VarChar(16)
   tanggalPengajuan DateTime         @default(now()) @map("tanggal_pengajuan") @db.Date
   data             Json?            @map("data")
-  keterangan       String?          @db.Text()
+  keterangan       String?
   kodeJenisSurat   String           @map("kode_jenis_surat")
-
-  penduduk   Penduduk   @relation(fields: [nikPemohon], references: [nik], onUpdate: Cascade, onDelete: Cascade)
-  jenisSurat JenisSurat @relation(fields: [kodeJenisSurat], references: [kode], onUpdate: Cascade, onDelete: Cascade)
-  surat      Surat?
+  jenisSurat       JenisSurat       @relation(fields: [kodeJenisSurat], references: [kode], onDelete: Cascade)
+  penduduk         Penduduk         @relation(fields: [nikPemohon], references: [nik], onDelete: Cascade)
+  surat            Surat?
 
   @@map("permohonan_surat")
 }
 
 model Surat {
-  id               Int      @id @default(autoincrement())
-  nomorSurat       String   @unique @map("nomor_surat") @db.VarChar(30)
-  nikPemohon       String   @map("nik_pemohon") @db.VarChar(16)
-  data             Json?    @map("data")
-  keterangan       String?  @db.Text()
-  tanggalPengajuan DateTime @default(now()) @map("tanggal_pengajuan") @db.Date
-  aparatDesaId     Int      @map("aparat_desa_id")
-  permohonanId     Int?     @unique @map("permohonan_id")
-  kodeJenisSurat   String   @map("kode_jenis_surat")
-
-  penduduk   Penduduk         @relation(fields: [nikPemohon], references: [nik], onUpdate: Cascade, onDelete: Cascade)
-  permohonan PermohonanSurat? @relation(fields: [permohonanId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  jenisSurat JenisSurat       @relation(fields: [kodeJenisSurat], references: [kode], onUpdate: Cascade, onDelete: Cascade)
-  aparatDesa AparatDesa       @relation(fields: [aparatDesaId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  id               Int              @id @default(autoincrement())
+  nomorSurat       String           @unique @map("nomor_surat") @db.VarChar(30)
+  nikPemohon       String           @map("nik_pemohon") @db.VarChar(16)
+  data             Json?            @map("data")
+  keterangan       String?
+  tanggalPengajuan DateTime         @default(now()) @map("tanggal_pengajuan") @db.Date
+  aparatDesaId     Int              @map("aparat_desa_id")
+  permohonanId     Int?             @unique @map("permohonan_id")
+  kodeJenisSurat   String           @map("kode_jenis_surat")
+  aparatDesa       AparatDesa       @relation(fields: [aparatDesaId], references: [id], onDelete: Cascade)
+  jenisSurat       JenisSurat       @relation(fields: [kodeJenisSurat], references: [kode], onDelete: Cascade)
+  penduduk         Penduduk         @relation(fields: [nikPemohon], references: [nik], onDelete: Cascade)
+  permohonan       PermohonanSurat? @relation(fields: [permohonanId], references: [id], onDelete: Cascade)
 
   @@map("surat")
 }
 
-// Enum
 enum JenisKelamin {
   L
   P
