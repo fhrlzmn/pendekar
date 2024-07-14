@@ -29,7 +29,7 @@ export default async function RecentSurat() {
           <CardDescription>Beberapa surat terbaru</CardDescription>
         </div>
         <Link
-          href='/admin/surat/list'
+          href='/admin/surat'
           className={buttonVariants({ variant: 'default', size: 'sm' })}
         >
           Lihat Semua

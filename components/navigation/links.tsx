@@ -25,7 +25,7 @@ const adminNavLinks: NavLink[] = [
   },
   {
     id: 3,
-    path: '/admin/surat/list',
+    path: '/admin/surat',
     label: 'Daftar Surat',
     icon: 'mails',
   },
