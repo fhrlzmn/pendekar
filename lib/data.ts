@@ -30,3 +30,23 @@ export async function fetchAdminCardData() {
     throw new Error('Database error');
   }
 }
+
+export async function fetchRecentPermohonan() {
+  try {
+    const recentPermohonan = await prisma.permohonanSurat.findMany({
+      take: 7,
+      orderBy: {
+        id: 'desc',
+      },
+      include: {
+        jenisSurat: true,
+        penduduk: true,
+      },
+    });
+
+    return recentPermohonan;
+  } catch (error) {
+    console.error('Database error: ', error);
+    throw new Error('Database error');
+  }
+}
