@@ -8,7 +8,7 @@ export default function Page() {
           Ajukan Permohonan Surat Baru
         </h1>
       </div>
-      <div className='rounded-sm grid grid-cols-3 gap-4'>
+      <div className='rounded-sm grid md:grid-cols-3 gap-4'>
         <div className='grid gap-4'>
           <JenisSuratCard
             path='/user/ajukan/sktm'

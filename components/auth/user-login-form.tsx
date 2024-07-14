@@ -86,6 +86,7 @@ export default function UserLoginForm() {
                         type='text'
                         maxLength={16}
                         disabled={isPending}
+                        inputMode='numeric'
                         {...field}
                       />
                     </FormControl>
@@ -109,6 +110,7 @@ export default function UserLoginForm() {
                         placeholder='******'
                         type='password'
                         maxLength={6}
+                        inputMode='numeric'
                         {...field}
                       />
                     </FormControl>
