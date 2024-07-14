@@ -33,7 +33,7 @@ export async function RecentPendingPermohonan() {
           <CardDescription>Beberapa permohonan surat terbaru</CardDescription>
         </div>
         <Link
-          href='/admin/surat/permohonan'
+          href='/admin/permohonan/list'
           className={buttonVariants({ variant: 'default', size: 'sm' })}
         >
           Lihat Semua

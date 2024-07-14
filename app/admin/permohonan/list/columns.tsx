@@ -74,7 +74,7 @@ export const columns: ColumnDef<PermohonanSuratColumn>[] = [
         <div className='flex gap-1'>
           {permohonanSurat.status === 'Dikirim' ? (
             <Link
-              href={`/admin/surat/permohonan/${permohonanSurat.id}`}
+              href={`/admin/permohonan/list/${permohonanSurat.id}`}
               className={buttonVariants({ variant: 'default', size: 'sm' })}
             >
               <Info className='h-4 w-4' />

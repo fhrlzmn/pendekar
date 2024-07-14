@@ -6,6 +6,9 @@ import { columns } from './columns';
 
 export default async function Page() {
   const permohonanSurat = await prisma.permohonanSurat.findMany({
+    where: {
+      status: 'Dikirim',
+    },
     include: {
       jenisSurat: true,
       penduduk: true,

@@ -25,33 +25,40 @@ const adminNavLinks: NavLink[] = [
   },
   {
     id: 3,
-    path: '#',
-    label: 'Surat',
+    path: '/admin/surat/list',
+    label: 'Daftar Surat',
     icon: 'mails',
+  },
+  {
+    id: 4,
+    path: '#',
+    label: 'Permohonan',
+    icon: 'mail-search',
     children: [
       {
-        id: 4,
-        path: '/admin/surat/permohonan',
-        label: 'Permohonan',
-        icon: 'mail-search',
+        id: 5,
+        path: '/admin/permohonan/list',
+        label: 'Daftar Permohonan',
+        icon: 'mail-warning',
       },
       {
-        id: 5,
-        path: '/admin/surat/list',
-        label: 'Daftar Surat',
-        icon: 'mails',
+        id: 6,
+        path: '/admin/permohonan/riwayat',
+        label: 'Riwayat',
+        icon: 'mail-check',
       },
     ],
   },
+
   {
-    id: 6,
+    id: 7,
     path: '#',
     label: 'Akun',
     icon: 'fingerprint',
     children: [
-      { id: 7, path: '/admin/account/users', label: 'Pengguna', icon: 'users' },
+      { id: 8, path: '/admin/account/users', label: 'Pengguna', icon: 'users' },
       {
-        id: 8,
+        id: 9,
         path: '/admin/account/admins',
         label: 'Administrator',
         icon: 'users',

@@ -41,7 +41,7 @@ export default function CetakSKKLHR({
 }: CetakSKKLHRProps) {
   const router = useRouter();
   if (permohonan.status === 'Selesai' || permohonan.status === 'Ditolak') {
-    router.push('/admin/surat/permohonan');
+    router.push('/admin/permohonan/list');
   }
 
   const data = permohonan.data as Prisma.JsonObject;
@@ -59,7 +59,7 @@ export default function CetakSKKLHR({
       >
         <div className='flex items-center gap-4'>
           <Link
-            href='/admin/surat/permohonan'
+            href='/admin/permohonan/list'
             className={buttonVariants({ variant: 'outline', size: 'icon' })}
           >
             <ChevronLeft className='h-4 w-4' />

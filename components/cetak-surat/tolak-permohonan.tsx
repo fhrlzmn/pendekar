@@ -49,7 +49,7 @@ export default function TolakPermohonan({ id }: { id: number }) {
             title: 'Berhasil',
             description: data.success,
           });
-          router.push('/admin/surat/permohonan');
+          router.push('/admin/permohonan/list');
         }
       });
     });

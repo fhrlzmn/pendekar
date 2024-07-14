@@ -90,7 +90,7 @@ export async function tolakPermohonan(id: number, keterangan: string) {
       },
     });
 
-    revalidatePath('/admin/surat/permohonan');
+    revalidatePath('/admin/permohonan/list');
     return { success: 'Berhasil tolak permohonan' };
   } catch (error) {
     return { error: 'Gagal tolak permohonan' };
