@@ -50,25 +50,25 @@ export async function UserDashboardCards({ nik }: { nik: string }) {
     <>
       <DashboardCard
         title='Total Permohonan'
-        icon='users'
+        icon='mails'
         value={totalPermohonanCount}
         description='Jumlah Permohonan yang Diajukan'
       />
       <DashboardCard
-        title='Permoohonan Diproses'
-        icon='mails'
+        title='Permohonan Diproses'
+        icon='mail-search'
         value={pendingPermohonanCount}
         description='Jumlah Permohonan yang sedang Diproses'
       />
       <DashboardCard
         title='Permohonan Disetujui'
-        icon='mail-search'
+        icon='mail-check'
         value={approvedPermohonanCount}
         description='Jumlah Permohonan yang telah Disetujui'
       />
       <DashboardCard
         title='Permohonan Ditolak'
-        icon='mail-warning'
+        icon='mail-x'
         value={rejectedPermohonanCount}
         description='Jumlah Permohonan yang Ditolak'
       />

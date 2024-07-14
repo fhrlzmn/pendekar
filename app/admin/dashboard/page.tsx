@@ -1,6 +1,6 @@
-import { AdminDashboardCards } from '@/components/dashboard/admin/cards';
-import { RecentPendingPermohonan } from '@/components/dashboard/admin/recent-permohonan';
-import RecentSurat from '@/components/dashboard/admin/recent-surat';
+import { AdminDashboardCards } from '@/components/dashboard/cards';
+import { RecentPendingPermohonan } from '@/components/dashboard/recent-permohonan';
+import RecentSurat from '@/components/dashboard/recent-surat';
 import {
   AdminDashboardCardsSkeleton,
   RecentTableSkeleton,
