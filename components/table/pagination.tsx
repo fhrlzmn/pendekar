@@ -21,10 +21,10 @@ export default function Pagination<TData>({ table }: PaginationProps<TData>) {
           {table.getPageCount()}
         </p>
       </div>
-      <div>
+      <div className='space-x-2'>
         <Button
           variant='outline'
-          size='icon'
+          size='sm'
           onClick={() => table.firstPage()}
           disabled={!table.getCanPreviousPage()}
         >
@@ -32,7 +32,7 @@ export default function Pagination<TData>({ table }: PaginationProps<TData>) {
         </Button>
         <Button
           variant='outline'
-          size='icon'
+          size='sm'
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
@@ -40,7 +40,7 @@ export default function Pagination<TData>({ table }: PaginationProps<TData>) {
         </Button>
         <Button
           variant='outline'
-          size='icon'
+          size='sm'
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
@@ -48,7 +48,7 @@ export default function Pagination<TData>({ table }: PaginationProps<TData>) {
         </Button>
         <Button
           variant='outline'
-          size='icon'
+          size='sm'
           onClick={() => table.lastPage()}
           disabled={!table.getCanNextPage()}
         >

@@ -2,8 +2,10 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
@@ -17,25 +19,48 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import Pagination from './pagination';
+import { useState } from 'react';
+import { Input } from '../ui/input';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filterBy?: string;
 }
 
 export default function DataTable<TData, TValue>({
   columns,
   data,
+  filterBy,
 }: DataTableProps<TData, TValue>) {
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters,
+    },
   });
 
   return (
     <div>
+      {filterBy && (
+        <div className='flex items-center pb-4'>
+          <Input
+            placeholder='Cari data...'
+            value={(table.getColumn('nama')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('nama')?.setFilterValue(event.target.value)
+            }
+            className='max-w-sm'
+          />
+        </div>
+      )}
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
@@ -79,7 +104,7 @@ export default function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  Tidak ada data.
                 </TableCell>
               </TableRow>
             )}
