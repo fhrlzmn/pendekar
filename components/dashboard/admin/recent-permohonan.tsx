@@ -16,11 +16,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { fetchRecentPermohonan } from '@/lib/data';
+import { fetchRecentPendingPermohonan } from '@/lib/data';
 import { formatDate } from '@/lib/utils';
 
-export default async function RecentPermohonan() {
-  const recentPermohonan = await fetchRecentPermohonan();
+export async function RecentPendingPermohonan() {
+  const recentPermohonan = await fetchRecentPendingPermohonan();
 
   return (
     <Card>

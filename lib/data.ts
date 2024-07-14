@@ -31,9 +31,12 @@ export async function fetchAdminCardData() {
   }
 }
 
-export async function fetchRecentPermohonan() {
+export async function fetchRecentPendingPermohonan() {
   try {
     const recentPermohonan = await prisma.permohonanSurat.findMany({
+      where: {
+        status: StatusPermohonan.Dikirim,
+      },
       take: 7,
       orderBy: {
         id: 'desc',
