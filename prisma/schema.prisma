@@ -57,14 +57,13 @@ model AparatDesa {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  nik          String   @unique @db.VarChar(16)
-  pin          String   @db.VarChar
-  nama         String   @db.VarChar(255)
-  dibuatPada   DateTime @default(now()) @map("dibuat_pada")
-  diubahPada   DateTime @updatedAt @map("diubah_pada")
-  pertamaLogin Boolean  @default(true) @map("pertama_login")
-  penduduk     Penduduk @relation(fields: [nik], references: [nik], onDelete: Cascade)
+  id         Int      @id @default(autoincrement())
+  nik        String   @unique @db.VarChar(16)
+  pin        String   @db.VarChar
+  nama       String   @db.VarChar(255)
+  dibuatPada DateTime @default(now()) @map("dibuat_pada")
+  diubahPada DateTime @updatedAt @map("diubah_pada")
+  penduduk   Penduduk @relation(fields: [nik], references: [nik], onDelete: Cascade)
 
   @@map("user")
 }
@@ -77,7 +76,6 @@ model Admin {
   dibuatPada   DateTime    @default(now()) @map("dibuat_pada")
   diubahPada   DateTime    @updatedAt @map("diubah_pada")
   aparatDesaId Int?        @unique @map("aparat_desa_id")
-  pertamaLogin Boolean     @default(true) @map("pertama_login")
   aparatDesa   AparatDesa? @relation(fields: [aparatDesaId], references: [id], onDelete: Cascade)
 
   @@map("admin")
