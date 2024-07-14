@@ -69,7 +69,7 @@ export default function UserLoginForm() {
               Selamat Datang di PENDEKAR
             </CardTitle>
             <CardDescription>
-              Silahkan login menggunakan NIK dan PIN
+              Untuk masyarakat, silahkan login menggunakan NIK dan PIN
             </CardDescription>
           </CardHeader>
           <CardContent className='grid gap-4'>
@@ -129,7 +129,7 @@ export default function UserLoginForm() {
               Masuk
             </Button>
           </CardContent>
-          <CardFooter className='justify-center'>
+          <CardContent className='text-center'>
             <span className='text-sm'>
               Belum punya akun?
               <Link
@@ -142,6 +142,18 @@ export default function UserLoginForm() {
                 Daftar disini
               </Link>
             </span>
+          </CardContent>
+          <CardFooter className='flex flex-col items-center gap-4'>
+            <span className='text-sm'>atau</span>
+            <Link
+              href='/auth/login/admin'
+              className={buttonVariants({
+                variant: 'outline',
+                className: 'w-full',
+              })}
+            >
+              Login sebagai Admin
+            </Link>
           </CardFooter>
         </div>
       </form>

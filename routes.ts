@@ -1,7 +1,6 @@
-export const publicRoutes = ['/'];
+export const publicRoutes = [''];
 
 export const authRoutes = [
-  '/auth/login',
   '/auth/login/admin',
   '/auth/login/user',
   '/auth/register/user',

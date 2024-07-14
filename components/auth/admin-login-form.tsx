@@ -25,11 +25,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import FormError from '@/components/form-error';
 import FormSuccess from '@/components/form-success';
 import { adminLoginSchema } from '@/schema/login';
 import { adminLogin } from '@/actions/login';
+import Link from 'next/link';
 
 export default function AdminLoginForm() {
   const [error, setError] = useState<string | undefined>();
@@ -118,11 +119,23 @@ export default function AdminLoginForm() {
             <FormError message={error} />
             <FormSuccess message={success} />
           </CardContent>
-          <CardFooter>
+          <CardContent>
             <Button type='submit' className='w-full' disabled={isPending}>
               {isPending && <RefreshCw className='mr-2 h-4 w-4 animate-spin' />}
               Masuk
             </Button>
+          </CardContent>
+          <CardFooter className='flex flex-col items-center gap-4'>
+            <span className='text-sm'>atau</span>
+            <Link
+              href='/auth/login/user'
+              className={buttonVariants({
+                variant: 'outline',
+                className: 'w-full',
+              })}
+            >
+              Login sebagai Penduduk
+            </Link>
           </CardFooter>
         </Card>
       </form>
