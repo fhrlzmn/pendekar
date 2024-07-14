@@ -41,23 +41,17 @@ const adminNavLinks: NavLink[] = [
         label: 'Daftar Surat',
         icon: 'mails',
       },
-      {
-        id: 6,
-        path: '/admin/surat/cetak',
-        label: 'Cetak Surat',
-        icon: 'mail-plus',
-      },
     ],
   },
   {
-    id: 7,
+    id: 6,
     path: '#',
     label: 'Akun',
     icon: 'fingerprint',
     children: [
-      { id: 8, path: '/admin/account/users', label: 'Pengguna', icon: 'users' },
+      { id: 7, path: '/admin/account/users', label: 'Pengguna', icon: 'users' },
       {
-        id: 9,
+        id: 8,
         path: '/admin/account/admins',
         label: 'Administrator',
         icon: 'users',
