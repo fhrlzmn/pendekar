@@ -1,12 +1,16 @@
 import { AdminDashboardCards } from '@/components/dashboard/admin/cards';
 import { RecentPendingPermohonan } from '@/components/dashboard/admin/recent-permohonan';
 import RecentSurat from '@/components/dashboard/admin/recent-surat';
+import { AdminDashboardCardsSkeleton } from '@/components/skeleton';
+import { Suspense } from 'react';
 
 export default function Page() {
   return (
     <>
       <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
-        <AdminDashboardCards />
+        <Suspense fallback={<AdminDashboardCardsSkeleton />}>
+          <AdminDashboardCards />
+        </Suspense>
       </div>
       <div className='grid gap-4 lg:grid-cols-[1fr_0.7fr]'>
         <RecentPendingPermohonan />
