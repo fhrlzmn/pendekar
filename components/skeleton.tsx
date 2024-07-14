@@ -26,3 +26,19 @@ export function AdminDashboardCardsSkeleton() {
     </>
   );
 }
+
+export function RecentTableSkeleton() {
+  return (
+    <Card>
+      <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+        <div className='grid w-full gap-2'>
+          <Skeleton className='w-1/3 h-8' />
+          <Skeleton className='w-full h-8' />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Skeleton className='w-full h-52' />
+      </CardContent>
+    </Card>
+  );
+}
