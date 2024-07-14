@@ -143,7 +143,6 @@ enum JenisKelamin {
 
 enum StatusPermohonan {
   Dikirim
-  Diterima
   Ditolak
   Selesai
 
