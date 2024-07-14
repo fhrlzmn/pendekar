@@ -1,7 +1,7 @@
 import dynamicIconImports from 'lucide-react/dynamicIconImports';
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { fetchAdminCardData } from '@/lib/data';
+import { fetchAdminCardData, fetchUserCardData } from '@/lib/data';
 import DynamicIcon from '@/components/dynamic-icon';
 
 export async function AdminDashboardCards() {
@@ -33,6 +33,44 @@ export async function AdminDashboardCards() {
         icon='mail-warning'
         value={pendingPermohonanCount}
         description='Jumlah Permohonan yang Belum Diproses'
+      />
+    </>
+  );
+}
+
+export async function UserDashboardCards({ nik }: { nik: string }) {
+  const {
+    totalPermohonanCount,
+    pendingPermohonanCount,
+    approvedPermohonanCount,
+    rejectedPermohonanCount,
+  } = await fetchUserCardData(nik);
+
+  return (
+    <>
+      <DashboardCard
+        title='Total Permohonan'
+        icon='users'
+        value={totalPermohonanCount}
+        description='Jumlah Permohonan yang Diajukan'
+      />
+      <DashboardCard
+        title='Permoohonan Diproses'
+        icon='mails'
+        value={pendingPermohonanCount}
+        description='Jumlah Permohonan yang sedang Diproses'
+      />
+      <DashboardCard
+        title='Permohonan Disetujui'
+        icon='mail-search'
+        value={approvedPermohonanCount}
+        description='Jumlah Permohonan yang telah Disetujui'
+      />
+      <DashboardCard
+        title='Permohonan Ditolak'
+        icon='mail-warning'
+        value={rejectedPermohonanCount}
+        description='Jumlah Permohonan yang Ditolak'
       />
     </>
   );

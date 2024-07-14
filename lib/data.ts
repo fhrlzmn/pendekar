@@ -72,3 +72,51 @@ export async function fetchRecentSurat() {
     throw new Error('Database error');
   }
 }
+
+export async function fetchUserCardData(nik: string) {
+  try {
+    const totalPermohonanCount = prisma.permohonanSurat.count({
+      where: {
+        nikPemohon: nik,
+      },
+    });
+
+    const pendingPermohonanCount = prisma.permohonanSurat.count({
+      where: {
+        nikPemohon: nik,
+        status: StatusPermohonan.Dikirim,
+      },
+    });
+
+    const approvedPermohonanCount = prisma.permohonanSurat.count({
+      where: {
+        nikPemohon: nik,
+        status: StatusPermohonan.Selesai,
+      },
+    });
+
+    const rejectedPermohonanCount = prisma.permohonanSurat.count({
+      where: {
+        nikPemohon: nik,
+        status: StatusPermohonan.Ditolak,
+      },
+    });
+
+    const data = await Promise.all([
+      totalPermohonanCount,
+      pendingPermohonanCount,
+      approvedPermohonanCount,
+      rejectedPermohonanCount,
+    ]);
+
+    return {
+      totalPermohonanCount: data[0],
+      pendingPermohonanCount: data[1],
+      approvedPermohonanCount: data[2],
+      rejectedPermohonanCount: data[3],
+    };
+  } catch (error) {
+    console.error('Database error: ', error);
+    throw new Error('Database error');
+  }
+}
