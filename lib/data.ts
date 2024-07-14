@@ -50,3 +50,22 @@ export async function fetchRecentPermohonan() {
     throw new Error('Database error');
   }
 }
+
+export async function fetchRecentSurat() {
+  try {
+    const recentSurat = await prisma.surat.findMany({
+      take: 7,
+      orderBy: {
+        id: 'desc',
+      },
+      include: {
+        jenisSurat: true,
+      },
+    });
+
+    return recentSurat;
+  } catch (error) {
+    console.error('Database error: ', error);
+    throw new Error('Database error');
+  }
+}
