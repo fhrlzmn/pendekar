@@ -1,12 +1,13 @@
 import UserLoginForm from '@/components/auth/user-login-form';
 import Image from 'next/image';
+import PlaceholderImage from '@/public/placeholder.webp';
 
 export default function Page() {
   return (
     <div className='w-full min-h-screen lg:grid lg:grid-cols-2'>
       <div className='hidden lg:block relative bg-muted'>
         <Image
-          src='/placeholder.webp'
+          src={PlaceholderImage}
           alt='Image'
           layout='fill'
           className='h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
