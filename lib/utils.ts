@@ -73,7 +73,7 @@ type AdminPassword = {
 
 export async function generateAdminPassword(): Promise<AdminPassword> {
   const charset =
-    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[{]};:\'",<.>/?';
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const password = Array.from({ length: 6 }, () =>
     charset.charAt(Math.floor(Math.random() * charset.length))
   ).join('');
