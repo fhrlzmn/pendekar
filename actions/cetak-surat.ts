@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 import { cetakSuratSchema } from '@/schema/cetakSurat';
 import { PermohonanSuratWithPenduduk } from '@/types/permohonan';
 import { Prisma, StatusPermohonan } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 export async function cetakSurat(
@@ -60,5 +61,38 @@ export async function cetakSurat(
   } catch (error) {
     console.log(error);
     return { error: 'Gagal cetak surat' };
+  }
+}
+
+export async function tolakPermohonan(id: number, keterangan: string) {
+  if (!keterangan) {
+    return { error: 'Keterangan harus diisi' };
+  }
+
+  try {
+    const permohonan = await prisma.permohonanSurat.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (permohonan?.status === StatusPermohonan.Selesai) {
+      return { error: 'Permohonan sudah dicetak' };
+    }
+
+    await prisma.permohonanSurat.update({
+      where: {
+        id,
+      },
+      data: {
+        status: StatusPermohonan.Ditolak,
+        keterangan: keterangan,
+      },
+    });
+
+    revalidatePath('/admin/surat/permohonan');
+    return { success: 'Berhasil tolak permohonan' };
+  } catch (error) {
+    return { error: 'Gagal tolak permohonan' };
   }
 }

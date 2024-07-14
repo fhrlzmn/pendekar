@@ -6,7 +6,7 @@ import { Info, Pencil } from 'lucide-react';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { Badge } from '@/components/ui/badge';
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 
 import { formatDate } from '@/lib/utils';
 
@@ -72,12 +72,18 @@ export const columns: ColumnDef<PermohonanSuratColumn>[] = [
 
       return (
         <div className='flex gap-1'>
-          <Link
-            href={`/admin/surat/permohonan/${permohonanSurat.id}`}
-            className={buttonVariants({ variant: 'default', size: 'sm' })}
-          >
-            <Info className='h-4 w-4' />
-          </Link>
+          {permohonanSurat.status === 'Dikirim' ? (
+            <Link
+              href={`/admin/surat/permohonan/${permohonanSurat.id}`}
+              className={buttonVariants({ variant: 'default', size: 'sm' })}
+            >
+              <Info className='h-4 w-4' />
+            </Link>
+          ) : (
+            <Button variant='default' size='sm' disabled>
+              <Info className='h-4 w-4' />
+            </Button>
+          )}
         </div>
       );
     },

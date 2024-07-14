@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import { ChevronLeft, RefreshCw } from 'lucide-react';
@@ -21,6 +22,7 @@ import TextareaDisabled from '@/components/textarea-disabled';
 import { cetakSuratSchema } from '@/schema/cetakSurat';
 import { PermohonanSuratWithPenduduk } from '@/types/permohonan';
 import FormFieldCetakSurat from './form-field-cetak-surat';
+import TolakPermohonan from './tolak-permohonan';
 
 interface CetakSKKMTNProps {
   form: UseFormReturn<z.infer<typeof cetakSuratSchema>>;
@@ -37,6 +39,11 @@ export default function CetakSKKMTN({
   permohonan,
   aparatDesa,
 }: CetakSKKMTNProps) {
+  const router = useRouter();
+  if (permohonan.status === 'Selesai' || permohonan.status === 'Ditolak') {
+    router.push('/admin/surat/permohonan');
+  }
+
   const data = permohonan.data as Prisma.JsonObject;
 
   const aparatDesaSelect = aparatDesa.map((aparat) => ({
@@ -52,7 +59,7 @@ export default function CetakSKKMTN({
       >
         <div className='flex items-center gap-4'>
           <Link
-            href='/admin/permohonan'
+            href='/admin/surat/permohonan'
             className={buttonVariants({ variant: 'outline', size: 'icon' })}
           >
             <ChevronLeft className='h-4 w-4' />
@@ -61,9 +68,10 @@ export default function CetakSKKMTN({
             Surat Keterangan Kelahiran
           </h1>
           <div className='items-center gap-2 ml-auto flex'>
+            <TolakPermohonan id={permohonan.id} />
             <Button type='submit' disabled={isPending}>
               {isPending && <RefreshCw className='mr-2 h-4 w-4 animate-spin' />}
-              Kirim
+              Cetak
             </Button>
           </div>
         </div>
