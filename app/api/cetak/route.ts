@@ -28,7 +28,7 @@ function generateDocx(surat: SuratWithRelations) {
   doc.render({
     jabatan: surat.aparatDesa.jabatan,
     nomorSurat: surat.nomorSurat,
-    tanggalSurat: formatDate(new Date(surat.tanggalPengajuan)),
+    tanggalSurat: formatDate(new Date(surat.dicetakPada)),
     penandatangan: surat.aparatDesa.jabatan,
     namaPenandatangan: surat.aparatDesa.nama,
     nip: surat.aparatDesa.nip,

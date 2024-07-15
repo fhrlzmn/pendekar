@@ -55,7 +55,9 @@ export default async function RecentSurat() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={2}>Tidak ada surat</TableCell>
+                <TableCell colSpan={2} className='h-24 text-center'>
+                  Tidak ada surat
+                </TableCell>
               </TableRow>
             )}
           </TableBody>

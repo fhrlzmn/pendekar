@@ -1,5 +1,6 @@
 'use server';
 
+import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import { cetakSuratSchema } from '@/schema/cetakSurat';
 import { PermohonanSuratWithPenduduk } from '@/types/permohonan';
@@ -11,6 +12,9 @@ export async function cetakSurat(
   values: z.infer<typeof cetakSuratSchema>,
   permohonan: PermohonanSuratWithPenduduk
 ) {
+  const session = await auth();
+  const adminName = session?.user.name;
+
   const validatedFields = cetakSuratSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -38,9 +42,10 @@ export async function cetakSurat(
             nikPemohon: permohonan.penduduk.nik,
             permohonanId: permohonan.id,
             data,
+            keterangan: 'Surat sudah dicetak',
             kodeJenisSurat: permohonan.kodeJenisSurat,
             aparatDesaId: parseInt(values.idPenandatangan),
-            tanggalPengajuan: permohonan.tanggalPengajuan,
+            dicetakOleh: adminName,
           },
         }),
         prisma.permohonanSurat.update({

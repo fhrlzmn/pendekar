@@ -107,19 +107,20 @@ model PermohonanSurat {
 }
 
 model Surat {
-  id               Int              @id @default(autoincrement())
-  nomorSurat       String           @unique @map("nomor_surat") @db.VarChar(30)
-  nikPemohon       String           @map("nik_pemohon") @db.VarChar(16)
-  data             Json?            @map("data")
-  keterangan       String?
-  tanggalPengajuan DateTime         @default(now()) @map("tanggal_pengajuan") @db.Date
-  aparatDesaId     Int              @map("aparat_desa_id")
-  permohonanId     Int?             @unique @map("permohonan_id")
-  kodeJenisSurat   String           @map("kode_jenis_surat")
-  aparatDesa       AparatDesa       @relation(fields: [aparatDesaId], references: [id], onDelete: Cascade)
-  jenisSurat       JenisSurat       @relation(fields: [kodeJenisSurat], references: [kode], onDelete: Cascade)
-  penduduk         Penduduk         @relation(fields: [nikPemohon], references: [nik], onDelete: Cascade)
-  permohonan       PermohonanSurat? @relation(fields: [permohonanId], references: [id], onDelete: Cascade)
+  id             Int              @id @default(autoincrement())
+  nomorSurat     String           @unique @map("nomor_surat") @db.VarChar(30)
+  nikPemohon     String           @map("nik_pemohon") @db.VarChar(16)
+  data           Json?            @map("data")
+  keterangan     String?          @db.Text
+  dicetakOleh    String?          @map("dicetak_oleh") @db.VarChar(255)
+  dicetakPada    DateTime         @default(now()) @map("dicetak_pada") @db.Date
+  aparatDesaId   Int              @map("aparat_desa_id")
+  permohonanId   Int?             @unique @map("permohonan_id")
+  kodeJenisSurat String           @map("kode_jenis_surat")
+  aparatDesa     AparatDesa       @relation(fields: [aparatDesaId], references: [id], onDelete: Cascade)
+  jenisSurat     JenisSurat       @relation(fields: [kodeJenisSurat], references: [kode], onDelete: Cascade)
+  penduduk       Penduduk         @relation(fields: [nikPemohon], references: [nik], onDelete: Cascade)
+  permohonan     PermohonanSurat? @relation(fields: [permohonanId], references: [id], onDelete: Cascade)
 
   @@map("surat")
 }

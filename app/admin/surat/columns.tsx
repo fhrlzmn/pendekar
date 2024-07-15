@@ -22,9 +22,13 @@ export const columns: ColumnDef<SuratWithRelations>[] = [
     accessorFn: (surat) => surat.jenisSurat.nama,
   },
   {
-    accessorKey: 'tanggalPengajuan',
-    header: 'Tanggal Pengajuan',
-    accessorFn: (permohonan) => formatDate(permohonan.tanggalPengajuan),
+    accessorKey: 'dicetakPada',
+    header: 'Tanggal Surat',
+    accessorFn: (surat) => formatDate(surat.dicetakPada),
+  },
+  {
+    accessorKey: 'dicetakOleh',
+    header: 'Dicetak Oleh',
   },
   {
     id: 'actions',
